@@ -12,7 +12,6 @@
     "react-router-dom": "^6.11.1",
     "scheduler": "^0.23.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
