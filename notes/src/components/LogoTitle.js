@@ -2,7 +2,7 @@
 
 const MainLogoTitle = () => {
     return (
-        <h1 className="logotitle">edoc</h1>
+        <h1 className="logotitle">e<span className="dot">.</span>doc</h1>
     )
 }
 

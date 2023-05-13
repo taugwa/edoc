@@ -1,27 +1,92 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500&family=Roboto+Mono&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500&family=Didact+Gothic&family=EB+Garamond:wght@500&family=Roboto+Mono&display=swap');
+
+.mainAppBar {
+    text-align: right;
+}
+
 .logotitle {
     font-family: 'EB Garamond', serif;
-    margin:10px;
-    font-size: 200px
+    margin:5px;
+    color: #292F33;
+    font-size: 1700%;
+    animation: fadeIn 3s;
     
 }
+
+.dot {
+    color:#FECB72
+}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+  
 
 .mainbg {
     background-image: url("components/images/MainBackground.png");
     background-repeat: no-repeat;
     background-size: cover
+    
 }
 
+@media (max-width: 800px) {
+    .background-image {
+      background-size: contain; 
+    }
+  }
+
 .pagemargin {
-    margin: 20px
+    margin: 20px;
+}
+.subtitle {
+    font-family: 'Didact Gothic', sans-serif;
+    display: inline-block;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .08em; /* Adjust as needed */
+    animation: 
+      typing 1.8s steps(35, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 80% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #E4E2E2; }
+  }
+
+.icon1-container {
+    margin: 50px;
+    height: auto;
+
 }
 
 .icon1 {
-    width: 400px;
+    padding-left: 50px;
+    text-align:center;
+    width: 40em;
     height: auto;
+    animation: fadeIn 3s;
 }
 
+.mainButton {
+    animation: fadeIn 1s;
+}
+  
 .mainBody {
-    margin: 20px
+    margin: 20px;
+    padding-top: 50px
+}
+
+.leftBody {
+    padding-left: 50px;
 }
