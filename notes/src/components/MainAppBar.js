@@ -1,4 +1,4 @@
-
+import { Typography } from '@mui/material';
 import {
     BrowserRouter as Router,
     Routes, Route, Link
@@ -11,8 +11,12 @@ const MainAppBar = () => {
 
     return (
     <Router>
-        <Link style={padding} to="/">Log in</Link>
-        <Link style={padding} to="/notes">Sign up</Link>
+        <Link style={padding} to="/">
+            <Typography style={{ display: 'inline' }}>Log in</Typography>
+        </Link>
+        <Link style={padding} to="/notes">
+            <Typography style={{ display: 'inline' }}>Sign up</Typography>
+        </Link>
     </Router>
 
     )

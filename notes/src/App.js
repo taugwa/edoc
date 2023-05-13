@@ -1,18 +1,37 @@
-import Theme from './Theme'
+
 import MainAppBar from './components/MainAppBar'
-import LogoTitle from './components/LogoTitle'
+import MainLogoTitle from './components/LogoTitle'
 import MainButton from './components/MainButton'
 import './index.css';
 
+import { createTheme, ThemeProvider } from '@mui/material'
+
+const theme = createTheme({
+    palette: {
+      
+    },
+
+    typography: {
+        fontFamily: 'Didact Gothic, sans-serif',
+        h2: 'EB Garamond, serif'
+    }
+});
 
 
-const App = () => {
+  
+
+function App () {
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <MainAppBar />
-      <LogoTitle />
-      <MainButton variant="contained" pill className="mainButton">🍄 Join the community</MainButton>
-    </div>
+      <MainLogoTitle className="mainPgLogo"/>
+      <MainButton variant="contained" pill 
+        sx={{
+          typography:{
+            fontFamily: 'Arimo, sans-serif'
+        }}}>🍄 Join the community</MainButton>
+
+    </ThemeProvider>
     
   )
 }
