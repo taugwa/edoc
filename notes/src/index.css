@@ -2,6 +2,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@500&family=Didact+Gothic&family=EB+Garamond:wght@500&family=Roboto+Mono&display=swap');
 .logotitle {
     font-family: 'EB Garamond', serif;
+    margin:10px;
     font-size: 200px
     
+}
+
+.mainbg {
+    background-image: url("components/images/MainBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.pagemargin {
+    margin: 20px
+}
+
+.icon1 {
+    width: 400px;
+    height: auto;
+}
+
+.mainBody {
+    margin: 20px
 }

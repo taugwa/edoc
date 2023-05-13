@@ -1,10 +1,11 @@
 
 import MainAppBar from './components/MainAppBar'
-import MainLogoTitle from './components/LogoTitle'
-import MainButton from './components/MainButton'
 import './index.css';
+import MainBody from './components/MainBody'
 
-import { createTheme, ThemeProvider } from '@mui/material'
+
+import { createTheme, ThemeProvider, Typography } from '@mui/material'
+
 
 const theme = createTheme({
     palette: {
@@ -12,27 +13,22 @@ const theme = createTheme({
     },
 
     typography: {
-        fontFamily: 'Didact Gothic, sans-serif',
-        h2: 'EB Garamond, serif'
+        fontFamily: 'Didact Gothic, sans-serif'
     }
 });
-
-
   
 
 function App () {
   return (
-    <ThemeProvider theme={theme}>
-      <MainAppBar />
-      <MainLogoTitle className="mainPgLogo"/>
-      <MainButton variant="contained" pill 
-        sx={{
-          typography:{
-            fontFamily: 'Arimo, sans-serif'
-        }}}>🍄 Join the community</MainButton>
-
-    </ThemeProvider>
-    
+    <div className="pagemargin">
+      <div className="mainbg">
+        <ThemeProvider theme={theme}>
+          <MainAppBar  />
+          <MainBody />
+ 
+        </ThemeProvider>
+      </div>
+    </div>
   )
 }
 
