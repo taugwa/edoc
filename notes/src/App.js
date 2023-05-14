@@ -20,7 +20,6 @@ const theme = createTheme({
 
 function App () {
   return (
-    <div className="pagemargin">
       <div className="mainbg">
         <ThemeProvider theme={theme}>
           <MainAppBar />
@@ -28,7 +27,6 @@ function App () {
  
         </ThemeProvider>
       </div>
-    </div>
   )
 }
 
