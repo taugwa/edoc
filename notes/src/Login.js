@@ -1,10 +1,10 @@
 import React from 'react'
 import "./Login.css"
-import background from "../assests/edocloginbackground.png"
+
 
 const Login = () => {
     return (
-        <div className="cover" style={{ backgroundImage: `url(${background})` }}>
+        <div className="cover" >
            <div className = "logintitle">
             <h1>Login</h1>
            <form action = "loginform">

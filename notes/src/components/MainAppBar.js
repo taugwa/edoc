@@ -14,17 +14,20 @@ const MainAppBar = () => {
 
     return (
         <div className="mainAppBar">
-                <Router>
+                <nav>
                     <Link style={barStyle} to="/">
+                        <Typography sx={{ fontSize: 18,display:'inline' }}>Home</Typography>
+                    </Link>
+                    <Link style={barStyle} to="/login">
                         <Typography sx={{ 
                                 fontSize: 18, 
                                 display:'inline'
                             }}>Log in</Typography>
                     </Link>
-                    <Link style={barStyle} to="/notes">
+                    <Link style={barStyle} to="/signup">
                         <Typography sx={{ fontSize: 18,display:'inline' }}>Sign up</Typography>
                     </Link>
-                </Router>
+                </nav>
         </div>
 
 
