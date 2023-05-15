@@ -8,4 +8,4 @@ const MainButton = styled(Button)(({ pill }) => ({
 
   }));
 
-  export default MainButton
+export default MainButton
