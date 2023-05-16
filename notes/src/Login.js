@@ -1,6 +1,7 @@
 import React from 'react'
 import "./index.css"
 import {Link} from 'react-router-dom'
+import LoginSignupButton from './components/LoginSignupButton'
 
 const Login = () => {
   return (
@@ -10,6 +11,15 @@ const Login = () => {
       <form className="loginForm">
         <input type="text" placeholder="Username..." /> <br/>
         <input type="text" placeholder="Password..." />
+    
+          <LoginSignupButton variant="contained" pill="true"
+                            sx={{
+                              padding: 0.5, mt: 3, ml:0.7
+                              
+                          }}
+          >Log in</LoginSignupButton>
+        
+        
       </form>
 
       <p className = "loginbottomtext">
