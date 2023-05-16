@@ -4,7 +4,7 @@ import Icon1 from "./images/Icon1.png";
 import { Typography } from '@mui/material';
 
 import { Grid } from '@mui/material';
-
+import { Link } from 'react-router-dom';
 const MainBody = () => {
 
 
@@ -24,7 +24,8 @@ const MainBody = () => {
                     </div><br/>
 
                     <div className="mainButton">
-                        <MainButton variant="contained" pill="true"
+                        <Link to="/signup">
+                            <MainButton variant="contained" pill="true"
                             sx={{
                             typography:{
                                 fontFamily: 'Arimo, sans-serif'
@@ -33,6 +34,8 @@ const MainBody = () => {
                             padding: 1, ml: 2, mt: 4,
                             fontSize: '20px'
                         }}>🍄 Join the community</MainButton>
+                        </Link>
+                        
                     </div>
                 </div>
                 

@@ -1,10 +1,30 @@
 import React from 'react'
-import "./Login.css"
-import background from "../assests/edocloginbackground.png"
+import "./index.css"
+import {Link} from 'react-router-dom'
 
 const Login = () => {
+  return (
+    <div className="loginBody">
+      <h1 className="logintitle">Log in</h1>
+      
+      <form className="loginForm">
+        <input type="text" placeholder="Username..." /> <br/>
+        <input type="text" placeholder="Password..." />
+      </form>
+
+      <p className = "loginbottomtext">
+        Don't have an account? Sign up <Link to="/signup">here</Link>.<br/>
+        Forgot your username or password? Click <Link to="">here</Link>.</p>
+    </div>
+  )
+}
+
+export default Login
+
+/*
+const Login = () => {
     return (
-        <div className="cover" style={{ backgroundImage: `url(${background})` }}>
+        <div className="cover" >
            <div className = "logintitle">
             <h1>Login</h1>
            <form action = "loginform">
@@ -25,12 +45,4 @@ const Login = () => {
 }
 export default Login
 
-
-
-
-
-
-
-
-
-      
+*/
