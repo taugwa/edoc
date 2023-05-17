@@ -146,6 +146,16 @@ html, body, #root {
   border-style: solid
 }
 
+.resetpwForm input {
+  height:30px;
+  width: 400px;
+  border-radius: 10px; 
+  padding: 8px;
+  margin: 5px;
+  background-color:#E5FFFE;
+  border-color: #8CBDBD;
+  border-style: solid
+}
 .loginForm input::placeholder {
   color: rgb(202,177,243);
   font-family: var(--font-body);
@@ -159,11 +169,16 @@ html, body, #root {
 }
 
 
-.loginbottomtext {
+.resetpwForm input::placeholder {
+  color: #8CBDBD;
   font-family: var(--font-body);
+  font-size: 1.2em;
 }
 
 
+.loginbottomtext {
+  font-family: var(--font-body);
+}
 
 .login-button {
   position: absolute;
