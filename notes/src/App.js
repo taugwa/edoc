@@ -4,6 +4,7 @@ import './index.css';
 import MainBody from './components/MainBody'
 import Login from "./Login"
 import Signup from "./Signup"
+import Welcome from './Welcome'
 
 import { createTheme, ThemeProvider} from '@mui/material'
 import { Route, Routes } from 'react-router-dom';
@@ -30,6 +31,7 @@ function App () {
             <Route path="/" element={<MainBody />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />}/>
+            <Route path = "/Welcome" element = {<Welcome />}/>
           </Routes>
 
 

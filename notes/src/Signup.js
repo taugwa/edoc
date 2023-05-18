@@ -14,9 +14,17 @@ class Signup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit = (e) => {
-    console.log("plsplsplspls just reach here i debug damn long alr");
+   // console.log("plsplsplspls just reach here i debug damn long alr");
     e.preventDefault();
     const { Email, Username, Password, Password_second } = this.state;
+    if (Password !== Password_second) {
+      alert('Passwords do not match'); // Display the alert
+      return;
+    }
+    if (Password.length < 8) {
+      alert('Password must have at least 8 characters');
+      return;
+    }
     console.log(Email, Username, Password, Password_second);
     fetch("http://localhost:3000/Signup",{
       method:"POST",
@@ -52,11 +60,11 @@ class Signup extends Component {
         placeholder="Username..." 
         onChange = {e => this.setState({Username:e.target.value})}
         /> <br />
-        <input type="text" 
+        <input type="password" 
         placeholder="Password (min. 8 characters)" 
         onChange = {e => this.setState({Password:e.target.value})}
         /> <br />
-        <input type="text"
+        <input type="password"
          placeholder="Confirm password"
          onChange = {e => this.setState({Password_second :e.target.value})}
          /> <br />

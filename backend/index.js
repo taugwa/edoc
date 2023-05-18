@@ -5,6 +5,8 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const secret = "randomnumbersecret";
 
 const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
 
@@ -19,6 +21,9 @@ mongoose.connect(mongoUrl, {
 
 app.post("/Signup",async(req,res) => {
   const {Email, Username, Password, Password_second} = req.body;
+  if (Password !== Password_second) {
+    return res.json({ error: "Passwords do not match" });
+  }
   const EncryptedPassword = await bcrypt.hash(Password,10);
   try {
     const registeredUser = await User.findOne({Email});
@@ -37,6 +42,43 @@ app.post("/Signup",async(req,res) => {
   }
 })
 require("./UserDetails");
+
+app.post("/Login", async(req,res) => {
+  const {Username, Password} = req.body;
+  const user = await User.findOne({Username});
+  // look for an existing user in the database. 
+  if (!user) {
+    //the user does not exist in the database, not registered.
+    return res.json({error: "User not found!"});
+  }
+  if (await bcrypt.compare(Password, user.Password)) {
+    // comparing the password with the existing user's password 
+    const token = jwt.sign({Username: user.Username}, secret);
+    if (res.status(201)) {
+      // password matches, return successful. 
+      return res.json({status:"successful", data:token});
+      // returns the token 
+    } else {
+      return res.json({error: "unsuccessful, error"});
+    }
+  }
+  res.json({status: "error", error: "Invalid Password"});
+});
+ 
+app.post("/Welcome", async(req,res) => {
+  const {token} = req.body;
+  try {
+    const user = jwt.verify(token, secret);
+    const user_Email = user.Email;
+    User.findOne({Username: user.Username}).then((data) => {
+      res.send({status: "ok", data:data});
+    }).catch((error) => {
+      res.send({status:"error", data:error});
+    });
+  } catch(error) {};
+})
+
+
 const User = mongoose.model("UserDetails");
 app.listen(3000, () => {
   console.log("server started!");

@@ -1,24 +1,80 @@
-import React from 'react'
+import React , {Component} from 'react';
 import "./index.css"
 import {Link} from 'react-router-dom'
+import LoginSignupButton from './components/LoginSignupButton'
 
-const Login = () => {
+class Login extends Component {
+  constructor(props) {
+    super(props);
+      this.state = {
+        Username: "",
+        Password: "",
+      };
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    handleSubmit(e) {
+      e.preventDefault();
+      const {Username, Password} = this.state;
+      console.log(Username, Password);
+      fetch("http://localhost:3000/Login",{
+      method:"POST",
+      crossDomain:true,
+      headers:{
+        "Content-Type":"application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin":"*",
+      },
+      body:JSON.stringify({
+      
+        Username,
+        Password,
+       
+      }),
+    }).then((res) => res.json())
+    .then((data) => {
+      console.log(data,"User_Login");
+      if (data.status === "successful") {
+        alert("User successfully logged in! Welcome!");
+        window.localStorage.setItem("token", data.data);
+        window.location.href = "./Welcome"
+    }
+    })
+  }
+    render() {
   return (
     <div className="loginBody">
       <h1 className="logintitle">Log in</h1>
       
-      <form className="loginForm">
-        <input type="text" placeholder="Username..." /> <br/>
-        <input type="text" placeholder="Password..." />
+      <form className="loginForm" onSubmit = {this.handleSubmit}>
+        <input 
+        type="text" 
+        placeholder="Username..."
+        onChange={(e) => this.setState({Username: e.target.value})} 
+        /> 
+        <br/>
+        <input 
+        type="password" 
+        placeholder="Password..."
+        onChange={(e) => this.setState({Password: e.target.value})}
+         />
+    
+          <LoginSignupButton type = "submit" variant="contained" pill="true"
+                            sx={{
+                              padding: 0.5, mt: 3, ml:0.7
+                              
+                          }}
+          >Log in</LoginSignupButton>
+        
+        
       </form>
 
       <p className = "loginbottomtext">
         Don't have an account? Sign up <Link to="/signup">here</Link>.<br/>
-        Forgot your username or password? Click <Link to="">here</Link>.</p>
+        Forgot your username or password? Click <Link to="/resetpassword">here</Link>.</p>
     </div>
   )
 }
-
+}
 export default Login
 
 /*
