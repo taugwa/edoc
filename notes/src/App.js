@@ -8,6 +8,7 @@ import Welcome from './Welcome'
 
 import { createTheme, ThemeProvider} from '@mui/material'
 import { Route, Routes } from 'react-router-dom';
+import ResetPassword from './ResetPassword';
 
 
 const theme = createTheme({
@@ -31,6 +32,7 @@ function App () {
             <Route path="/" element={<MainBody />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />}/>
+            <Route path="/resetpassword" element={<ResetPassword />}/>
             <Route path = "/Welcome" element = {<Welcome />}/>
           </Routes>
 
