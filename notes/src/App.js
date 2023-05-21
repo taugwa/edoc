@@ -1,14 +1,15 @@
 
-import MainAppBar from './components/MainAppBar'
+import MainAppBar from './Main/components/MainAppBar'
 import './index.css';
-import MainBody from './components/MainBody'
-import Login from "./Login"
-import Signup from "./Signup"
-import Welcome from './Welcome'
+import MainBody from './Main/components/MainBody'
+import Login from "./Main/Login"
+import Signup from "./Main/Signup"
+
+import Welcome from './NotesApp/Welcome'
 
 import { createTheme, ThemeProvider} from '@mui/material'
 import { Route, Routes } from 'react-router-dom';
-import ResetPassword from './ResetPassword';
+import ResetPassword from './Main/ResetPassword';
 
 
 const theme = createTheme({
@@ -17,7 +18,11 @@ const theme = createTheme({
     },
 
     typography: {
-        fontFamily: 'Didact Gothic, sans-serif'
+
+        fontFamily: 'Didact Gothic, sans-serif',
+        heading1: {
+          fontFamily:'EB Garamond, serif',
+        }
     }
 });
   
@@ -25,15 +30,17 @@ const theme = createTheme({
 function App () {
   
   return (
-      <div className="mainbg">
+      <div className>
         <ThemeProvider theme={theme}>
-          <MainAppBar />
+          
           <Routes>
-            <Route path="/" element={<MainBody />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />}/>
-            <Route path="/resetpassword" element={<ResetPassword />}/>
-            <Route path = "/Welcome" element = {<Welcome />}/>
+            <Route path="/" element={<div className="mainbg"><MainAppBar /><MainBody /></div>} />
+            <Route path="/login" element={<div className="mainbg"><MainAppBar /><Login /></div>} />
+            <Route path="/signup" element={<div className="mainbg"><MainAppBar /><Signup /></div>}/>
+            <Route path="/resetpassword" element={<div className="mainbg"><MainAppBar /><ResetPassword /></div>}/>
+
+
+            <Route path = "/Welcome" element = {<div className="notesapp"><Welcome /></div>}/>
           </Routes>
 
 

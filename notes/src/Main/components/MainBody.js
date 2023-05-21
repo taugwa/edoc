@@ -1,5 +1,5 @@
 import MainButton from './MainButton'
-import MainLogoTitle from './LogoTitle'
+import MainLogoTitle from './MainLogoTitle'
 import Icon1 from "./images/Icon1.png";
 import { Typography } from '@mui/material';
 
@@ -16,7 +16,7 @@ const MainBody = () => {
             
             <Grid item xs={12} sm={6} md={5.5}>
                 <div className="leftBody">
-                    <MainLogoTitle className="mainPgLogo"/>
+                    <MainLogoTitle/>
                     <div className="subtitle">
                         <Typography sx={{pl: 0.5, pd:0.5, ml: 2, md:2,fontSize: 30}}>
                             Notetaking for life's enthusiasts.

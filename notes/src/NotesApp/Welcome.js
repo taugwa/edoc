@@ -1,4 +1,7 @@
+
 import React, {Component} from "react";
+
+import UserLandingPage from "./UserLandingPage"
 
 
 class Welcome extends Component {
@@ -28,9 +31,11 @@ class Welcome extends Component {
         }
     
     render() {
+       
         return (
             <div> 
-                Welcome: <h1>{this.state.Welcome.Username} !</h1>
+                <UserLandingPage userName={this.state.Welcome.Username} />
+                
             </div>
         )
     }

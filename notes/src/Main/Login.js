@@ -1,5 +1,5 @@
 import React , {Component} from 'react';
-import "./index.css"
+
 import {Link} from 'react-router-dom'
 import LoginSignupButton from './components/LoginSignupButton'
 
