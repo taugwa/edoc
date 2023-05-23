@@ -38,6 +38,12 @@ class Login extends Component {
         window.localStorage.setItem("token", data.data);
         window.location.href = "./Welcome"
     }
+    if (data.status === "error, not found") {
+      alert("User not found");
+    }
+    if (data.status === "error") {
+      alert("Incorrect password/username");
+    }
     })
   }
     render() {

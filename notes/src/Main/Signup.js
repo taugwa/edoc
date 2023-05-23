@@ -13,7 +13,6 @@ class Signup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit = (e) => {
-   // console.log("plsplsplspls just reach here i debug damn long alr");
     e.preventDefault();
     const { Email, Username, Password, Password_second } = this.state;
     if (Password !== Password_second) {
@@ -25,7 +24,7 @@ class Signup extends Component {
       return;
     }
     console.log(Email, Username, Password, Password_second);
-    fetch("http://localhost:3000/Signup",{
+    fetch("http://localhost:3000/signup",{
       method:"POST",
       crossDomain:true,
       headers:{
@@ -41,7 +40,10 @@ class Signup extends Component {
       }),
     }).then((res) => res.json())
     .then((data) => {
-      console.log(data,"UserDetails")
+      console.log(data,"UserDetails");
+      if (data.status === "ok") {
+        alert("Sign-up successful!");
+      }
     })
   }
 
