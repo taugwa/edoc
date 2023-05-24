@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 
 import UserLandingPage from "./UserLandingPage"
-
+import { AppProvider,AppContext } from './components/AppContext';
 
 class Welcome extends Component {
     constructor(props) {
@@ -31,11 +31,12 @@ class Welcome extends Component {
         }
     
     render() {
-       
+        
         return (
             <div> 
-                <UserLandingPage userName={this.state.Welcome.Username} />
-                
+                <AppProvider>
+                    <UserLandingPage userName={this.state.Welcome.Username} />
+                </AppProvider>
             </div>
         )
     }
