@@ -213,7 +213,7 @@ html, body, #root {
   font-family: var(--font-heading);
   margin:5px;
   color: #292F33;
-  font-size: 250%;
+  font-size: 280%;
   
 }
 .sidebar {
@@ -222,7 +222,7 @@ html, body, #root {
   width: 220px;
   border-right: 1px solid #E4E2E2;
   margin:10px;
-  padding-left:10px;
+  padding-left:15px;
 }
 
 .subsidebar{
@@ -247,23 +247,31 @@ html, body, #root {
   font-size: 20px;
 }
 
-.notesapp-sidebar-function {
-  padding-left:10px;
-  display: flex;
-  align-items: center;
-  padding-bottom:10px;
-}
+
 
 .notesapp-sidebar-function-label {
   font-family: var(--font-body);
   font-size: 17px;
+  background:white;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  margin: 2px;
+  height:35px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width:200px;
+  padding-left:15px;
 }
-
+.notesapp-sidebar-function-label:hover {
+  background-color: #D8FFEF;
+}
 
 .notearea {
   margin:10px;
   font-weight:bold;
-  padding-left:10px;
+  padding-left:15px;
   padding-top:25px;
   font-size:50px
 }
@@ -272,3 +280,12 @@ html, body, #root {
   padding-top:10px;
 }
 
+.notetextarea {
+  width: 95%;
+  height:80vh;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: var(--font-body);
+  font-size: 20px;
+}

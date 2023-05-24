@@ -13,8 +13,7 @@ function Content () {
     return (
         <div>
             
-            <HiUser userName={content.userName}/>
-  
+            <content.page userName={content.userName} />
         </div>
     )
 }

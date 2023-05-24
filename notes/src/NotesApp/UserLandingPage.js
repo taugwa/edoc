@@ -15,21 +15,21 @@ function UserLandingPage({userName}) {
     const { content, updateContent } = useContext(AppContext);
     useEffect(() => {
         updateContent({ userName: userName });
-      }, []);
+      }, [userName]);
 
     
 
     return (
 
         <div>
-            <Grid container  sx={{ minHeight: '100vh' }}>
+            <Grid container  sx={{ minHeight: '100vh' }} wrap="nowrap">
                 <Grid item>
                     <Sidebar userName={userName}/>
                 </Grid>
                 <Grid item>
                     <SubSidebar/>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12}>
                     <Content userName={userName}/>
                 </Grid>
                 

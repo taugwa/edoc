@@ -9,7 +9,7 @@ import defaultProfilePicture from './images/defaultpfp.png'
 import searchIcon from './images/search.png'
 import plusIcon from './images/plus.png'
 import bookmarkIcon from './images/bookmark.png'
-import SidebarFunction from './SidebarFunction'
+
 
 import { AppContext } from './AppContext';
 
@@ -20,16 +20,15 @@ function Sidebar(props) {
     const { updateContent } = useContext(AppContext);
 
     const handleNewNoteClick = (event) => {
-        updateContent({page: "newnote"})
+        updateContent({page: Note})
     }
 
     const handleSearchClick = (event) => {
-        updateContent({page:"search"});
+     
 
     }
            
     const handleBookmarksClick = (event) => {
-        updateContent({page:"bookmarks"});
 
     
     }
