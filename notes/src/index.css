@@ -239,6 +239,7 @@ html, body, #root {
   display: flex;
   align-items: center;
   padding-bottom:10px;
+  padding-left:3px;
 }
 
 .notesapp-sidebar-profile-userName {
@@ -262,7 +263,7 @@ html, body, #root {
   align-items: center;
   cursor: pointer;
   width:200px;
-  padding-left:15px;
+  padding-left:10px;
 }
 .notesapp-sidebar-function-label:hover {
   background-color: #D8FFEF;

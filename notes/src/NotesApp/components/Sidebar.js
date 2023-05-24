@@ -1,6 +1,6 @@
 
 import HiUser from '../functions/HiUser'
-import Note from '../functions/Note'
+import Note from '../functions/NoteView'
 import { useContext } from 'react'
 import Content from './Content'
 
@@ -55,10 +55,13 @@ function Sidebar(props) {
 
                  <button onClick={handleNewNoteClick}
                 className="notesapp-sidebar-function-label"><img src={plusIcon} alt="Bookmarks" 
-                        style={{width:"19px", paddingRight: "15px"}}/>Create New Note</button>
+                        style={{width:"19px", paddingRight: "15px"}}/>New note</button>
 
             </div>
             
+            <div className='sidebarfolders'>
+
+            </div>
         </div>
     )
 }

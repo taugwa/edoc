@@ -1,6 +1,6 @@
 import HiUser from '../functions/HiUser'
 
-import Note from '../functions/Note'
+import Note from '../functions/NoteView'
 
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';

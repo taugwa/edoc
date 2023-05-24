@@ -2,7 +2,7 @@
 import Sidebar from './components/Sidebar'
 import SubSidebar from './components/SubSidebar'
 import HiUser from './functions/HiUser'
-import Note from './functions/Note'
+import Note from './functions/NoteView'
 
 import Content from './components/Content'
 import { AppProvider,AppContext } from './components/AppContext';
