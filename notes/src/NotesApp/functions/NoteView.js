@@ -85,7 +85,7 @@ class Note extends Component {
 
   render() {
     const { noteTitle, noteBody } = this.state;
-    const { serName } = this.props;
+    const { Username } = this.props;
 
     return (
       <div className="notearea">
