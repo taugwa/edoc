@@ -12,28 +12,36 @@ const Sidebar = (props) => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/notes", {
-      method: "GET",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "notes");
-        setNotes(data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
-
+    const fetchUserNotes = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/notes/${content.Username}`, {
+          method: 'GET',
+          crossDomain: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setNotes(data);
+        } else {
+          console.error('Error:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+  
+    if (content.Username) {
+      fetchUserNotes();
+    }
+  }, [content.Username]);
+  
   const handleNewNoteClick = (event) => {
     event.preventDefault();
-    updateContent({ page: Note });
+    updateContent({ page: Note, Username: props.Username });
   };
 
   const handleSearchClick = (event) => {
@@ -53,15 +61,17 @@ const Sidebar = (props) => {
   };
 
   return (
-    <div className='sidebar'>
+    <div className="sidebar">
       <LogoTitle />
       <div className="notesapp-sidebar-profile">
         <img
           src={defaultProfilePicture}
           alt="Default Profile Picture"
-          style={{ width: "38px", paddingRight: "10px" }}
+          style={{ width: '38px', paddingRight: '10px' }}
         />
-        <span className="notesapp-sidebar-profile-userName">{props.Username}</span>
+        <span className="notesapp-sidebar-profile-userName">
+          {props.Username}
+        </span>
       </div>
       <div className="">
         <button
@@ -71,7 +81,7 @@ const Sidebar = (props) => {
           <img
             src={searchIcon}
             alt=""
-            style={{ width: "19px", paddingRight: "15px" }}
+            style={{ width: '19px', paddingRight: '15px' }}
           />
           Search
         </button>
@@ -83,7 +93,7 @@ const Sidebar = (props) => {
           <img
             src={bookmarkIcon}
             alt="Bookmarks"
-            style={{ width: "19px", paddingRight: "15px" }}
+            style={{ width: '19px', paddingRight: '15px' }}
           />
           Bookmarks
         </button>
@@ -95,13 +105,13 @@ const Sidebar = (props) => {
           <img
             src={plusIcon}
             alt="New Note"
-            style={{ width: "19px", paddingRight: "15px" }}
+            style={{ width: '19px', paddingRight: '15px' }}
           />
           New note
         </button>
       </div>
 
-      <div className='sidebarfolders'>
+      <div className="sidebarfolders">
         {notes.map((note) => (
           <div key={note._id}>{note.Title}</div>
         ))}

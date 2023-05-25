@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const secret = "randomnumbersecret";
 require("./UserDetails");
 require("./Note");
+const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
 const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
@@ -109,9 +110,8 @@ app.post("/resetpassword", async(req,res) => {
 
 
 app.post("/notes", async (req, res) => {
- // console.log("called");
-  const { Username, Title, Body} = req.body;
-  const user = await User.findOne({Username});
+  const { Username, Title, Body } = req.body;
+  const user = await User.findOne({ Username });
   try {
     if (!user) {
       return res.status(404).json({ status: "error", message: "User not found" });
@@ -127,16 +127,22 @@ app.post("/notes", async (req, res) => {
   }
 });
 
-app.get("/notes", async (req, res) => {
+
+app.get('/notes/:Username', async (req, res) => {
   try {
-    const notes = await Note.find();
+    const { Username } = req.params;
+    console.log(Username);
+    const user = await UserDetails.findOne({ Username });
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+    const notes = await Note.find({ _id: { $in: user.notes } });
     return res.status(200).json(notes);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ status: "error", message: "Error retrieving notes" });
+    return res.status(500).json({ status: 'error', message: 'Error retrieving notes' });
   }
 });
-
 
 app.listen(3000, () => {
   console.log("server started!");
