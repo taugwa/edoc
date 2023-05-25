@@ -32,17 +32,17 @@ function Sidebar(props) {
 
     
     }
-   
 
 
 
+    
     return (
         <div className='sidebar'>
             <LogoTitle />
             <div className="notesapp-sidebar-profile">
                 <img src={defaultProfilePicture} alt="Default Profile Picture" 
                     style={{width:"38px", paddingRight: "10px"}}/>
-                <span className="notesapp-sidebar-profile-userName">{props.userName}</span>
+                <span className="notesapp-sidebar-profile-userName">{props.Username}</span>
             </div>
             <div className="">
                 <button onClick={handleSearchClick}

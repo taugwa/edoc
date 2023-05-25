@@ -13,7 +13,7 @@ function Content () {
     return (
         <div>
             
-            <content.page userName={content.userName} />
+            <content.page Username={content.Username} />
         </div>
     )
 }

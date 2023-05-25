@@ -7,7 +7,10 @@ app.use(cors());
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const secret = "randomnumbersecret";
-
+require("./UserDetails");
+require("./Note");
+const Note = mongoose.model("Note");
+const User = mongoose.model("UserDetails");
 const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
 
 mongoose.connect(mongoUrl, {
@@ -41,7 +44,6 @@ app.post("/Signup",async(req,res) => {
     res.send({status: "error"});
   }
 })
-require("./UserDetails");
 
 app.post("/Login", async(req,res) => {
   const {Username, Password} = req.body;
@@ -105,7 +107,25 @@ app.post("/resetpassword", async(req,res) => {
   }
 });
 
-const User = mongoose.model("UserDetails");
+
+app.post("/notes", async (req, res) => {
+ // console.log("called");
+  const { Username, Title, Body} = req.body;
+  const user = await User.findOne({Username});
+  try {
+    if (!user) {
+      return res.status(404).json({ status: "error", message: "User not found" });
+    }
+    const note = await Note.create({ Title, Body });
+    user.notes.push(note._id);
+    await user.save();
+
+    return res.status(201).json({ status: "success", message: "Note created successfully", note });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: "error", message: "Error creating note" });
+  }
+});
 app.listen(3000, () => {
   console.log("server started!");
 });
