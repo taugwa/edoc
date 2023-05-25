@@ -126,6 +126,18 @@ app.post("/notes", async (req, res) => {
     return res.status(500).json({ status: "error", message: "Error creating note" });
   }
 });
+
+app.get("/notes", async (req, res) => {
+  try {
+    const notes = await Note.find();
+    return res.status(200).json(notes);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: "error", message: "Error retrieving notes" });
+  }
+});
+
+
 app.listen(3000, () => {
   console.log("server started!");
 });
