@@ -17,21 +17,27 @@ function Sidebar(props) {
 
     //const [dynamicContent, setDynamicContent] = useState(<Content wee="hi"/>)
     
-    const { updateContent } = useContext(AppContext);
+    const { content, updateContent } = useContext(AppContext);
 
     const handleNewNoteClick = (event) => {
+        event.preventDefault()
         updateContent({page: Note})
+        
     }
 
     const handleSearchClick = (event) => {
-     
-
+        event.preventDefault()
+        updateContent({searchSubSidebar: !content.searchSubSidebar,
+                bookmarksSubSidebar: false})
     }
            
     const handleBookmarksClick = (event) => {
-
+        event.preventDefault()
+        updateContent({bookmarksSubSidebar: !content.bookmarksSubSidebar,
+                searchSubSidebar: false})
     
     }
+   
 
 
 

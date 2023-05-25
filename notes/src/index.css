@@ -230,8 +230,19 @@ html, body, #root {
   height:100%;
   width: 220px;
   border-right: 1px solid #E4E2E2;
+  padding-top:15px;
   margin:10px;
   
+}
+
+.search-subsidebar {
+  width: 80%;
+  padding:10px;
+  border-radius: 30px;
+  border-style: none;
+  background-color: #E4E2E2;
+
+
 }
 
 

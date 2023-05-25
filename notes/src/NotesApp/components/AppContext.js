@@ -7,7 +7,13 @@ export const AppContext = createContext();
 // Create the context provider
 export const AppProvider = ({ children }) => {
 
-  const [content, setContent] = useState({ page: HiUser, Username: "" });
+  const [content, setContent] = useState({ 
+    page: HiUser, 
+    userName: "",
+    searchSubSidebar: false,
+    bookmarksSubSidebar: false
+  
+  });
   const updateContent = (newContent) => {
     setContent({ ...content, ...newContent });
   };
