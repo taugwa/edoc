@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
 import HiUser from '../functions/HiUser'
+import Note from '../functions/NoteView';
 
 // Create the context
 export const AppContext = createContext();
@@ -8,11 +9,11 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
 
   const [content, setContent] = useState({ 
-    page: HiUser, 
-    userName: "",
+    page: Note, // i changed this but now the HiUser is gone.., pls help me jy
+    Username: "",
     searchSubSidebar: false,
-    bookmarksSubSidebar: false
-  
+    bookmarksSubSidebar: false,
+    
   });
   const updateContent = (newContent) => {
     setContent({ ...content, ...newContent });

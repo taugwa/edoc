@@ -1,104 +1,91 @@
-import React, {Component} from 'react';
-import { InputBase } from "@mui/material";
+import React, { useContext, useState, useEffect } from 'react';
+import { InputBase } from '@mui/material';
 import { styled } from '@mui/system';
-
+import { AppContext } from '../components/AppContext';
 
 const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
   fontFamily: theme.typography.heading1.fontFamily,
-  fontSize: "50px",
-  fontWeight: "bold",
-  width: "800px",
-  paddingRight: "10px",
+  fontSize: '50px',
+  fontWeight: 'bold',
+  width: '800px',
+  paddingRight: '10px',
 }));
 
-/*
-function Note({ Title, handleChangeNoteTitle }) {
-  return (
-    <div className="notearea">
-      <StyledInputBaseTitle
-        type="text"
-        value={Title}
-        placeholder="Title"
-        onChange={handleChangeNoteTitle}
-      />
-      <textarea className="notetextarea" placeholder="Type here..." />
-    </div>
-  );
-}
+const Note = () => {
+  const { content, updateContent } = useContext(AppContext);
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteBody, setNoteBody] = useState('');
 
-export default Note;
+  useEffect(() => {
+    if (content.selectedNote) {
+      setNoteTitle(content.selectedNote.Title || '');
+      setNoteBody(content.selectedNote.Body || '');
+    } else {
+      setNoteTitle('');
+      setNoteBody('');
+    }
+  }, [content.selectedNote]);
 
-*/
+  const handleChangeNoteTitle = (event) => {
+    setNoteTitle(event.target.value);
+  };
 
-class Note extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Title: 'New Note',
-      Body: '',
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  const handleChangeNoteBody = (event) => {
+    setNoteBody(event.target.value);
+  };
 
-  handleChangeNoteTitle = (event) => {
-    this.setState({ Title: event.target.value });
-  }
-
-  handleChangeNoteBody = (event) => {
-    this.setState({ Body: event.target.value });
-  }
-
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { Title, Body } = this.state;
-    console.log(Title, Body);
+    const { Username } = content;
     const token = localStorage.getItem('token');
-    fetch("http://localhost:3000/notes", {
-      method: "POST",
+    fetch('http://localhost:3000/notes', {
+      method: 'POST',
       crossDomain: true,
       headers: {
-        "Content-Type":"application/json",
-        Accept:"application/json",
-        "Access-Control-Allow-Origin":"*",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        Username: this.props.Username,
-        Title,
-        Body,
+        Username,
+        Title: noteTitle,
+        Body: noteBody,
       }),
-    }).then((res) => res.json())
-    .then((data) => {
-    //  console.log(data," creating note");
-      console.log(data);
-      if (data.status === 'success') {
-        alert('Note submitted!');
-      } else if (data.status === 'error') {
-        alert('Error submitting note');
-      }
     })
-    .catch((error) => {
-      console.error('Error:', error);
-      alert('An error occurred while submitting the note');
-    });
-}
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'success') {
+          alert('Note submitted!');
+        } else if (data.status === 'error') {
+          alert('Error submitting note');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the note');
+      });
+  };
 
-  render() {
-    const { noteTitle, noteBody } = this.state;
-    const { Username } = this.props;
+  return (
+    <div className="notearea">
+      <form className="form" onSubmit={handleSubmit}>
+        <StyledInputBaseTitle
+          type="text"
+          value={noteTitle}
+          placeholder="Title"
+          onChange={handleChangeNoteTitle}
+        />
+        <textarea
+          className="notetextarea"
+          value={noteBody}
+          placeholder="Type here..."
+          onChange={handleChangeNoteBody}
+        />
+        <button type="submit">Save</button>
+      </form>
+    </div>
+  );
+};
 
-    return (
-      <div className="notearea">
-        <form className= "form" onSubmit={this.handleSubmit}>
-          <StyledInputBaseTitle type="text" value={noteTitle} placeholder="Title" onChange={this.handleChangeNoteTitle} />
-          <textarea className="notetextarea" value={noteBody} placeholder="Type here..." onChange={this.handleChangeNoteBody} />
-          <button type="submit">
-            save
-          </button>
-        </form>
-      </div>
-    );
-  }
-}
-
-export default Note
+export default Note;

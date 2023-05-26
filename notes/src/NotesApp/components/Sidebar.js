@@ -39,10 +39,6 @@ const Sidebar = (props) => {
     }
   }, [content.Username]);
   
-  const handleNewNoteClick = (event) => {
-    event.preventDefault();
-    updateContent({ page: Note, Username: props.Username });
-  };
 
   const handleSearchClick = (event) => {
     event.preventDefault();
@@ -52,6 +48,19 @@ const Sidebar = (props) => {
     });
   };
 
+const handleNoteClick = (noteTitle) => {
+    const selectedNote = notes.find((note) => note.Title === noteTitle.Title);
+    if (selectedNote) {
+      updateContent({ selectedNote: { Title: selectedNote.Title, Body: selectedNote.Body } });
+    } else {
+      console.error('Note not found:', noteTitle);
+    }
+  };
+  const handleNewNoteClick = (event) => {
+    event.preventDefault();
+    updateContent({ page: Note, content: { Username: content.Username } });
+  };
+
   const handleBookmarksClick = (event) => {
     event.preventDefault();
     updateContent({
@@ -59,7 +68,7 @@ const Sidebar = (props) => {
       searchSubSidebar: false,
     });
   };
-
+ 
   return (
     <div className="sidebar">
       <LogoTitle />
@@ -70,7 +79,7 @@ const Sidebar = (props) => {
           style={{ width: '38px', paddingRight: '10px' }}
         />
         <span className="notesapp-sidebar-profile-userName">
-          {props.Username}
+          {content.Username}
         </span>
       </div>
       <div className="">
@@ -112,9 +121,11 @@ const Sidebar = (props) => {
       </div>
 
       <div className="sidebarfolders">
-        {notes.map((note) => (
-          <div key={note._id}>{note.Title}</div>
-        ))}
+      {notes.map((note) => (
+  <div key={note._id} onClick={() => handleNoteClick(note)}>
+    {note.Title}
+  </div>
+))}
       </div>
     </div>
   );

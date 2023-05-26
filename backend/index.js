@@ -131,7 +131,7 @@ app.post("/notes", async (req, res) => {
 app.get('/notes/:Username', async (req, res) => {
   try {
     const { Username } = req.params;
-    console.log(Username);
+   //console.log(Username);
     const user = await UserDetails.findOne({ Username });
     if (!user) {
       return res.status(404).json({ status: 'error', message: 'User not found' });
@@ -143,6 +143,7 @@ app.get('/notes/:Username', async (req, res) => {
     return res.status(500).json({ status: 'error', message: 'Error retrieving notes' });
   }
 });
+
 
 app.listen(3000, () => {
   console.log("server started!");
