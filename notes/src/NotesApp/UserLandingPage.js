@@ -31,7 +31,7 @@ function UserLandingPage({Username}) {
               </Grid>
               
               { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
-              { content.bookmarksSubSidebar && (<Grid item><BookmarksSubSidebar/></Grid>)  }
+              { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
              
               <Grid item xs={12}>
                   <Content Username={Username}/>

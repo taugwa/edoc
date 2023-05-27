@@ -35,9 +35,9 @@ function App () {
           
           <Routes>
             <Route path="/" element={<div className="mainbg"><MainAppBar /><MainBody /></div>} />
-            <Route path="/login" element={<div className="mainbg"><MainAppBar /><Login /></div>} />
-            <Route path="/signup" element={<div className="mainbg"><MainAppBar /><Signup /></div>}/>
-            <Route path="/resetpassword" element={<div className="mainbg"><MainAppBar /><ResetPassword /></div>}/>
+            <Route path="/login" element={<div className=""><MainAppBar /><Login /></div>} />
+            <Route path="/signup" element={<div className=""><MainAppBar /><Signup /></div>}/>
+            <Route path="/resetpassword" element={<div className=""><MainAppBar /><ResetPassword /></div>}/>
             <Route path = "/Welcome" element = {<div className="notesapp"><Welcome /></div>}/>
           </Routes>
 

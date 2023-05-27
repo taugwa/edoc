@@ -1,15 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import { AppContext } from './AppContext';
 import LogoTitle from './LogoTitle';
 import defaultProfilePicture from './images/defaultpfp.png';
 import searchIcon from './images/search.png';
 import plusIcon from './images/plus.png';
 import bookmarkIcon from './images/bookmark.png';
+import documentIcon from './images/document.png';
+
 import Note from '../functions/NoteView';
 
 const Sidebar = (props) => {
   const { content, updateContent } = useContext(AppContext);
   const [notes, setNotes] = useState([]);
+  const searchButtonRef = useRef(null);
+  const bookmarksButtonRef = useRef(null);
 
   useEffect(() => {
     const fetchUserNotes = async () => {
@@ -40,12 +44,18 @@ const Sidebar = (props) => {
   }, [content.Username]);
   
 
+
+
+  
   const handleSearchClick = (event) => {
     event.preventDefault();
     updateContent({
       searchSubSidebar: !content.searchSubSidebar,
       bookmarksSubSidebar: false,
     });
+
+    if (content.searchSubSidebar) { searchButtonRef.current.blur();}
+   
   };
 
 const handleNoteClick = (noteTitle) => {
@@ -74,6 +84,8 @@ const handleNoteClick = (noteTitle) => {
       bookmarksSubSidebar: !content.bookmarksSubSidebar,
       searchSubSidebar: false,
     });
+
+    if (content.bookmarksSubSidebar) { bookmarksButtonRef.current.blur();}
   };
  
   return (
@@ -91,6 +103,7 @@ const handleNoteClick = (noteTitle) => {
       </div>
       <div className="">
         <button
+          ref={searchButtonRef}
           onClick={handleSearchClick}
           className="notesapp-sidebar-function-label"
         >
@@ -103,6 +116,7 @@ const handleNoteClick = (noteTitle) => {
         </button>
 
         <button
+          ref={bookmarksButtonRef}
           onClick={handleBookmarksClick}
           className="notesapp-sidebar-function-label"
         >
@@ -115,6 +129,7 @@ const handleNoteClick = (noteTitle) => {
         </button>
 
         <button
+
           onClick={handleNewNoteClick}
           className="notesapp-sidebar-function-label"
         >
@@ -125,12 +140,20 @@ const handleNoteClick = (noteTitle) => {
           />
           New note
         </button>
+
+
       </div>
 
-      <div className="sidebarfolders">
+      <div className="sidebarnotes">
       {notes.map((note) => (
-  <div key={note._id} onClick={() => handleNoteClick(note)}>
-    {note.Title}
+  <div className="sidebarnotes-allbuttons" key={note._id} onClick={() => handleNoteClick(note)}>
+    <button className='sidebarnotes-button'>
+        <img
+            src={documentIcon}
+            alt="Note"
+            style={{ width: '19px', paddingRight: '15px' }}
+          />
+          {note.Title}</button>
   </div>
 ))}
       </div>

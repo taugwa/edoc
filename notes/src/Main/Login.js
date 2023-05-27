@@ -34,7 +34,7 @@ class Login extends Component {
     .then((data) => {
       console.log(data,"User_Login");
       if (data.status === "successful") {
-        alert("User successfully logged in! Welcome!");
+        //alert("User successfully logged in! Welcome!");
         window.localStorage.setItem("token", data.data);
         window.location.href = "./Welcome"
     }

@@ -276,8 +276,46 @@ html, body, #root {
   width:200px;
   padding-left:10px;
 }
+
 .notesapp-sidebar-function-label:hover {
   background-color: #D8FFEF;
+}
+
+.notesapp-sidebar-function-label:focus{
+  background-color: #D8FFEF;
+}
+
+
+.sidebarnotes{
+  padding-top:10px;
+
+}
+
+.sidebarnotes-button {
+  font-family: var(--font-body);
+
+  font-size: 17px;
+  background:white;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  margin: 2px;
+  height:35px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width:200px;
+  max-width: 200px;
+  padding-left:10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right:10px;
+  flex-shrink: 0
+}
+
+.sidebarnotes-button:hover, .sidebarnotes-button:focus {
+  background-color: #F1E8FF;
 }
 
 .notearea {

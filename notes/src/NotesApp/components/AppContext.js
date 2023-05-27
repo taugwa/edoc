@@ -9,7 +9,7 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
 
   const [content, setContent] = useState({ 
-    page: HiUser, // i changed this but now the HiUser is gone.., pls help me jy
+    page: HiUser,
     Username: "",
     searchSubSidebar: false,
     bookmarksSubSidebar: false,
