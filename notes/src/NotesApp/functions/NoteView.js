@@ -13,6 +13,7 @@ const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
 
 const Note = () => {
   const { content, updateContent } = useContext(AppContext);
+  const [noteID, setNoteID] = useState('');
   const [noteTitle, setNoteTitle] = useState('');
   const [noteBody, setNoteBody] = useState('');
 
@@ -20,9 +21,11 @@ const Note = () => {
     if (content.selectedNote) {
       setNoteTitle(content.selectedNote.Title || '');
       setNoteBody(content.selectedNote.Body || '');
+      setNoteID(content.selectedNote.NoteID || '' )
     } else {
       setNoteTitle('');
       setNoteBody('');
+      setNoteID('');
     }
   }, [content.selectedNote]);
 
@@ -49,6 +52,7 @@ const Note = () => {
       },
       body: JSON.stringify({
         Username,
+        NoteID: noteID,
         Title: noteTitle,
         Body: noteBody,
       }),
@@ -57,9 +61,16 @@ const Note = () => {
       .then((data) => {
         if (data.status === 'success') {
           alert('Note submitted!');
+
+        } else if (data.status === 'editsuccess') {
+          alert('Note sucessfully edited!');
+
+      
         } else if (data.status === 'error') {
           alert('Error submitting note');
+
         }
+        window.location.reload();
       })
       .catch((error) => {
         console.error('Error:', error);

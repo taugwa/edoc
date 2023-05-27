@@ -9,10 +9,16 @@ export const AppContext = createContext();
 export const AppProvider = ({ children }) => {
 
   const [content, setContent] = useState({ 
-    page: Note, // i changed this but now the HiUser is gone.., pls help me jy
+    page: HiUser, // i changed this but now the HiUser is gone.., pls help me jy
     Username: "",
     searchSubSidebar: false,
     bookmarksSubSidebar: false,
+
+    selectedNote: {
+      NoteID: "", 
+      Title: "",
+      Body: ""
+    },
     
   });
   const updateContent = (newContent) => {

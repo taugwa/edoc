@@ -110,17 +110,38 @@ app.post("/resetpassword", async(req,res) => {
 
 
 app.post("/notes", async (req, res) => {
-  const { Username, Title, Body } = req.body;
+  const { Username, NoteID, Title, Body } = req.body;
   const user = await User.findOne({ Username });
   try {
     if (!user) {
       return res.status(404).json({ status: "error", message: "User not found" });
     }
-    const note = await Note.create({ Title, Body });
-    user.notes.push(note._id);
-    await user.save();
 
-    return res.status(201).json({ status: "success", message: "Note created successfully", note });
+    if (NoteID != "") {
+      const existingNote = await Note.findById(NoteID);
+      if (existingNote) {
+        existingNote.Title = Title;
+        existingNote.Body = Body;
+        await existingNote.save();
+        return  res.status(201).json({ status: "editsuccess", message: "Note created successfully", existingNote });
+    
+      } else {
+        return res.status(404).json({ status: "error", message: "User not found" });
+      }
+      
+    } else {
+      const note = await Note.create({ Title, Body });
+      user.notes.push(note._id);
+      await user.save();
+      return res.status(201).json({ status: "success", message: "Note created successfully", note });
+    }
+
+    
+    //const note = await Note.create({ Title, Body });
+    //user.notes.push(note._id);
+    //await user.save();
+
+    //return res.status(201).json({ status: "success", message: "Note created successfully", note });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: "error", message: "Error creating note" });

@@ -50,15 +50,22 @@ const Sidebar = (props) => {
 
 const handleNoteClick = (noteTitle) => {
     const selectedNote = notes.find((note) => note.Title === noteTitle.Title);
+    console.log(selectedNote._id)
     if (selectedNote) {
-      updateContent({ selectedNote: { Title: selectedNote.Title, Body: selectedNote.Body } });
+      updateContent({ 
+        page: Note,
+        selectedNote: { 
+          NoteID: selectedNote._id,
+          Title: selectedNote.Title, Body: selectedNote.Body } });
     } else {
       console.error('Note not found:', noteTitle);
     }
   };
   const handleNewNoteClick = (event) => {
     event.preventDefault();
-    updateContent({ page: Note, content: { Username: content.Username } });
+    updateContent({ page: Note, 
+      selectedNote: { Title: "", Body: "" } ,
+      content: { Username: content.Username } });
   };
 
   const handleBookmarksClick = (event) => {
