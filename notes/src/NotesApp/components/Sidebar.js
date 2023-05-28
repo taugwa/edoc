@@ -21,6 +21,8 @@ const Sidebar = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
           },
         });
         if (response.ok) {

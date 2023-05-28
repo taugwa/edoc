@@ -1,5 +1,8 @@
 import React, { useContext,useEffect, useState } from 'react';
 import { AppContext } from './AppContext';
+import Note from "../functions/NoteView";
+import documentIcon from './images/document.png';
+
 
 const SearchSubSidebar = () => {
   const { content, updateContent } = useContext(AppContext);
@@ -15,6 +18,8 @@ const SearchSubSidebar = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'Access-Control-Allow-Origin': '*',
           },
         });
         if (response.ok) {
@@ -39,6 +44,26 @@ const SearchSubSidebar = () => {
     updateContent({ searchTerm }); 
   };
 
+  const handleSearchNoteClick = (searchNoteTitle) => {
+    console.log("clicked");
+    const selectedNote = notes.find((note) => note.Title === searchNoteTitle.Title);
+    console.log(selectedNote._id)
+    if (selectedNote) {
+      updateContent({ 
+        page: Note,
+        selectedNote: { 
+          NoteID: selectedNote._id,
+          Title: selectedNote.Title, 
+          Body: selectedNote.Body } });
+    } else {
+      console.error('Note not found:', searchNoteTitle);
+    }
+  };
+  const filteredNotes = notes.filter((note) =>
+  note.Title.toLowerCase().includes(searchTerm.toLowerCase())
+);
+ 
+
   return (
     <div className="subsidebar">
       <form>
@@ -50,7 +75,7 @@ const SearchSubSidebar = () => {
           placeholder="Search notes..."
         />
       </form>
-      <div className="search-results">
+      {/* <div className="search-results">
         {notes
           .filter((note) =>
             note.Title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -60,6 +85,24 @@ const SearchSubSidebar = () => {
               <span>{note.Title}</span>
             </div>
           ))}
+      </div> */}
+       <div className="sidebarnotes">
+        {filteredNotes.map((note) => (
+          <div
+            className="sidebarnotes-allbuttons"
+            key={note._id}
+            onClick={() => handleSearchNoteClick(note)}
+          >
+            <button className="sidebarnotes-button">
+              <img
+                src={documentIcon}
+                alt="Note"
+                style={{ width: '19px', paddingRight: '15px' }}
+              />
+              {note.Title}
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
