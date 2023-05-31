@@ -2,6 +2,240 @@ import React, { useContext, useState, useEffect } from 'react';
 import { InputBase } from '@mui/material';
 import { styled } from '@mui/system';
 import { AppContext } from '../components/AppContext';
+import Toolbar from '../components/Toolbar'
+
+const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
+  fontFamily: theme.typography.heading1.fontFamily,
+  fontSize: '50px',
+  fontWeight: 'bold',
+  width: '800px',
+  paddingRight: '10px',
+}));
+
+const Note = () => {
+  const { content, updateContent } = useContext(AppContext);
+  const [noteID, setNoteID] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteBody, setNoteBody] = useState('');
+
+  useEffect(() => {
+    if (content.selectedNote) {
+      setNoteTitle(content.selectedNote.Title || '');
+      setNoteBody(content.selectedNote.Body || '');
+      setNoteID(content.selectedNote.NoteID || '' )
+    } else {
+      setNoteTitle('');
+      setNoteBody('');
+      setNoteID('');
+    }
+  }, [content.selectedNote]);
+
+  useEffect(() => {
+    const autosaveTimeout = setTimeout(handleSubmit, 500); // Set a delay of 2000 milliseconds (2 seconds) for autosave
+    return () => {
+      clearTimeout(autosaveTimeout);
+    };
+  }, [noteTitle, noteBody]); // Run the autosave effect whenever the noteTitle or noteBody changes
+
+  const handleChangeNoteTitle = (event) => {
+    setNoteTitle(event.target.value);
+  };
+
+  const handleChangeNoteBody = (event) => {
+    setNoteBody(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    const { Username } = content;
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/notes', {
+      method: 'POST',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        Username,
+        NoteID: noteID,
+        Title: noteTitle,
+        Body: noteBody,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'success') {
+          console.log('Note autosaved!');
+          updateContent({
+            selectedNote: {
+              NoteID: data.note.noteId  // Updated property name
+            }
+          });
+        } else if (data.status === 'editsuccess') {
+          console.log('Note successfully edited!');
+        } else if (data.status === 'error') {
+          console.log('Error autosaving note');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while autosaving the note');
+      });
+  };
+
+  return (
+    
+    <div className="notearea">
+      <Toolbar />
+      <form className="form">
+        <StyledInputBaseTitle
+          type="text"
+          value={noteTitle}
+          placeholder="Title"
+          onChange={handleChangeNoteTitle}
+        />
+        <textarea
+          className="notetextarea"
+          value={noteBody}
+          placeholder="Type here..."
+          onChange={handleChangeNoteBody}
+        />
+      </form>
+    </div>
+  );
+};
+
+export default Note;
+
+
+
+
+
+
+/*
+import React, { useContext, useState, useEffect } from 'react';
+import { InputBase } from '@mui/material';
+import { styled } from '@mui/system';
+import { AppContext } from '../components/AppContext';
+
+const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
+  fontFamily: theme.typography.heading1.fontFamily,
+  fontSize: '50px',
+  fontWeight: 'bold',
+  width: '800px',
+  paddingRight: '10px',
+}));
+
+const Note = () => {
+  const { content, updateContent } = useContext(AppContext);
+  const [noteID, setNoteID] = useState('');
+  const [noteTitle, setNoteTitle] = useState('');
+  const [noteBody, setNoteBody] = useState('');
+
+  useEffect(() => {
+    if (content.selectedNote) {
+      setNoteTitle(content.selectedNote.Title || '');
+      setNoteBody(content.selectedNote.Body || '');
+      setNoteID(content.selectedNote.NoteID || '' )
+    } else {
+      setNoteTitle('');
+      setNoteBody('');
+      setNoteID('');
+    }
+  }, [content.selectedNote]);
+
+  const handleChangeNoteTitle = (event) => {
+    setNoteTitle(event.target.value);  
+    handleSubmit(); 
+  };
+
+  const handleChangeNoteBody = (event) => {
+    setNoteBody(event.target.value);
+    handleSubmit();
+    
+  };
+
+  const handleSubmit = () => {
+    const { Username } = content;
+    const token = localStorage.getItem('token');
+    fetch('http://localhost:3000/notes', {
+      method: 'POST',
+      crossDomain: true,
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        Username,
+        NoteID: noteID,
+        Title: noteTitle,
+        Body: noteBody,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'success') {
+          console.log('Note submitted!');
+          updateContent({
+            selectedNote: {
+              NoteID: data.NoteID
+            }
+          }
+          )
+
+        } else if (data.status === 'editsuccess') {
+          console.log('Note sucessfully edited!');
+
+      
+        } else if (data.status === 'error') {
+          console.log('Error submitting note');
+
+        }
+   
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting the note');
+      });
+  };
+
+  return (
+    <div className="notearea">
+      <form className="form">
+        <StyledInputBaseTitle
+          type="text"
+          value={noteTitle}
+          placeholder="Title"
+          onChange={handleChangeNoteTitle}
+        />
+        <textarea
+          className="notetextarea"
+          value={noteBody}
+          placeholder="Type here..."
+          onChange={handleChangeNoteBody}
+        />
+      </form>
+    </div>
+  );
+};
+
+export default Note;
+*/
+
+
+
+
+
+
+/*
+import React, { useContext, useState, useEffect } from 'react';
+import { InputBase } from '@mui/material';
+import { styled } from '@mui/system';
+import { AppContext } from '../components/AppContext';
 
 const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
   fontFamily: theme.typography.heading1.fontFamily,
@@ -37,7 +271,7 @@ const Note = () => {
     setNoteBody(event.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSave = (e) => {
     e.preventDefault();
     const { Username } = content;
     const token = localStorage.getItem('token');
@@ -77,10 +311,15 @@ const Note = () => {
         alert('An error occurred while submitting the note');
       });
   };
+  
+  const handleBookmark = (e) => {
+    e.preventDefault();
+
+  };
 
   return (
     <div className="notearea">
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSave}>
         <StyledInputBaseTitle
           type="text"
           value={noteTitle}
@@ -94,9 +333,12 @@ const Note = () => {
           onChange={handleChangeNoteBody}
         />
         <button type="submit">Save</button>
+        <button type="submit" onClick={handleBookmark}>Bookmark</button>
       </form>
     </div>
   );
 };
 
 export default Note;
+
+*/

@@ -2,7 +2,7 @@ import React, { Component, useContext, useEffect } from 'react';
 import SearchSubSidebar from './components/SearchSubSidebar'
 import BookmarksSubSidebar from './components/BookmarksSubSidebar'
 import Sidebar from './components/Sidebar';
-import SubSidebar from './components/SubSidebar';
+
 import { Grid } from '@mui/material';
 import Note from './functions/NoteView';
 import LoginSignupButton from '../Main/components/LoginSignupButton';
@@ -31,7 +31,7 @@ function UserLandingPage({Username}) {
               </Grid>
               
               { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
-              { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
+              { content.bookmarksSubSidebar && (<Grid item><BookmarksSubSidebar/></Grid>)  }
              
               <Grid item xs={12}>
                   <Content Username={Username}/>

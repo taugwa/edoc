@@ -241,7 +241,7 @@ html, body, #root {
   border-radius: 30px;
   border-style: none;
   background-color: #E4E2E2;
-
+  outline: none;
 
 }
 
@@ -338,4 +338,14 @@ html, body, #root {
   resize: none;
   font-family: var(--font-body);
   font-size: 20px;
+}
+
+.toolbar-button-img {
+  width:18px;
+  height:20px;
+
+}
+
+.toolbar-button {
+
 }

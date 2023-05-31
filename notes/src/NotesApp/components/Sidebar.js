@@ -80,7 +80,7 @@ const Sidebar = () => {
       </div>
       <div className="">
         <button
-          onClick={() => updateContent({ searchSubSidebar: true, bookmarksSubSidebar: false })}
+          onClick={() => updateContent({ searchSubSidebar: !content.searchSubSidebar, bookmarksSubSidebar: false })}
           className="notesapp-sidebar-function-label"
         >
           <img
@@ -92,7 +92,7 @@ const Sidebar = () => {
         </button>
 
         <button
-          onClick={() => updateContent({ bookmarksSubSidebar: true, searchSubSidebar: false })}
+          onClick={() => updateContent({ bookmarksSubSidebar: !content.bookmarksSubSidebar, searchSubSidebar: false })}
           className="notesapp-sidebar-function-label"
         >
           <img

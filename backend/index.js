@@ -123,7 +123,7 @@ app.post("/notes", async (req, res) => {
         existingNote.Title = Title;
         existingNote.Body = Body;
         await existingNote.save();
-        return  res.status(201).json({ status: "editsuccess", message: "Note created successfully", existingNote });
+        return  res.status(201).json({ status: "editsuccess", message: "Note edited successfully", existingNote });
     
       } else {
         return res.status(404).json({ status: "error", message: "User not found" });
@@ -133,19 +133,21 @@ app.post("/notes", async (req, res) => {
       const note = await Note.create({ Title, Body });
       user.notes.push(note._id);
       await user.save();
-      return res.status(201).json({ status: "success", message: "Note created successfully", note });
+      return res.status(201).json({ status: "success", message: "Note created successfully", note, NoteID: note._id });
     }
 
-    
     //const note = await Note.create({ Title, Body });
     //user.notes.push(note._id);
     //await user.save();
-
     //return res.status(201).json({ status: "success", message: "Note created successfully", note });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: "error", message: "Error creating note" });
   }
+});
+
+app.post("/bookmarks", async (req, res) => { 
+
 });
 
 
