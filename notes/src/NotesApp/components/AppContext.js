@@ -12,7 +12,8 @@ export const AppProvider = ({ children }) => {
     page: HiUser,
     Username: "",
     searchSubSidebar: false,
-    bookmarksSubSidebar: false,
+    bookmarksSubSidebar: false,   
+    bookmarks: [] ,
 
     selectedNote: {
       NoteID: "", 
