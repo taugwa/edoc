@@ -108,41 +108,35 @@ app.post("/resetpassword", async(req,res) => {
   }
 });
 
-
-app.post("/notes", async (req, res) => {
+app.post('/notes', async (req, res) => {
   const { Username, NoteID, Title, Body } = req.body;
-  const user = await User.findOne({ Username });
+  const user = await UserDetails.findOne({ Username });
+
   try {
     if (!user) {
-      return res.status(404).json({ status: "error", message: "User not found" });
+      return res.status(404).json({ status: 'error', message: 'User not found' });
     }
 
-    if (NoteID != "") {
+    if (NoteID !== '') {
       const existingNote = await Note.findById(NoteID);
       if (existingNote) {
         existingNote.Title = Title;
         existingNote.Body = Body;
         await existingNote.save();
-        return  res.status(201).json({ status: "editsuccess", message: "Note edited successfully", existingNote });
-    
+        console.log("savesavesave");
+        return res.status(201).json({ status: 'editsuccess', message: 'Note edited successfully', existingNote });
       } else {
-        return res.status(404).json({ status: "error", message: "User not found" });
+        return res.status(404).json({ status: 'error', message: 'Note not found' });
       }
-      
     } else {
       const note = await Note.create({ Title, Body });
       user.notes.push(note._id);
       await user.save();
-      return res.status(201).json({ status: "success", message: "Note created successfully", note, NoteID: note._id });
+      return res.status(201).json({ status: 'success', message: 'Note created successfully', note, NoteID: note._id });
     }
-
-    //const note = await Note.create({ Title, Body });
-    //user.notes.push(note._id);
-    //await user.save();
-    //return res.status(201).json({ status: "success", message: "Note created successfully", note });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ status: "error", message: "Error creating note" });
+    return res.status(500).json({ status: 'error', message: 'Error creating or updating note' });
   }
 });
 
@@ -151,14 +145,16 @@ app.post("/bookmarks", async (req, res) => {
 });
 
 
+
 app.get('/notes/:Username', async (req, res) => {
   try {
     const { Username } = req.params;
-   //console.log(Username);
     const user = await UserDetails.findOne({ Username });
+
     if (!user) {
       return res.status(404).json({ status: 'error', message: 'User not found' });
     }
+
     const notes = await Note.find({ _id: { $in: user.notes } });
     return res.status(200).json(notes);
   } catch (error) {
@@ -167,22 +163,63 @@ app.get('/notes/:Username', async (req, res) => {
   }
 });
 
+app.get('/notes/:Username/:NoteID', async (req, res) => {
+  const { Username, NoteID } = req.params;
+  const user = await UserDetails.findOne({ Username }).populate('notes');
+  try {
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+
+    const note = user.notes.find((note) => note._id.toString() === NoteID);
+    if (!note) {
+      return res.status(404).json({ status: 'error', message: 'Note not found' });
+    }
+    console.log(NoteID + "hello im in GET");
+
+    return res.status(200).json({ status: 'success', message: 'Note retrieved successfully', note });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: 'error', message: 'Error retrieving note' });
+  }
+});
+
+
+app.put('/:Username/notes/:NoteID', async (req, res) => {
+  const { Username, NoteID } = req.params;
+  const { Title, Body } = req.body;
+  const user = await UserDetails.findOne({ Username });
+  console.log(NoteID);
+  try {
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+
+    if (NoteID !== '') {
+      const existingNote = await Note.findById(NoteID);
+      if (existingNote) {
+        existingNote.Title = Title;
+        existingNote.Body = Body;
+        await existingNote.save();
+        console.log(Body);
+        console.log(Title);
+        return res.status(201).json({ status: 'editsuccess', message: 'Note edited successfully', existingNote });
+      } else {
+        return res.status(404).json({ status: 'error', message: 'Note not found' });
+      }
+    } else {
+      const note = await Note.create({ Title, Body });
+      user.notes.push(note._id);
+      await user.save();
+      return res.status(201).json({ status: 'success', message: 'Note created successfully', note, NoteID: note._id });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', message: 'Error creating or updating note' });
+  }
+});
+
 
 app.listen(3000, () => {
   console.log("server started!");
 });
-
-// app.post("/post", async(req,res) => {
-//   console.log(req.body);
-//   const{data} = req.body;
-
-//   try {
-//     if (data == "teeyuxun") {
-//       res.send({status:"ok"});
-//     } else {
-//       res.send({status: "noooo"});
-//     }
-//   } catch(error) {
-//     res.send({status:"something wrong"});
-//   }
-// });
