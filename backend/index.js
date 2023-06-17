@@ -170,26 +170,52 @@ app.get('/notes/:id', async (req, res) => {
   }
 });
 
-app.post('/notes/:id', async (req, res) => {
-  console.log('POST /notes/:id endpoint reached');
+app.get('/notes/:Username/:id', async (req, res) => {
+  console.log('GET /notes/:id endpoint reached');
   const noteId = req.params.id;
-  const { Title, Body } = req.body;
+
+  if (!ObjectId.isValid(noteId)) {
+    return res.status(400).json({ status: 'error', message: 'Invalid note ID' });
+  }
 
   try {
-    const updatedNote = await Note.findOneAndUpdate(
-      { _id: new ObjectId(noteId) },
+    const note = await Note.findOne({ _id: new ObjectId(noteId) });
+
+    if (!note) {
+      return res.status(404).json({ status: 'error', message: 'Note not found' });
+    }
+
+    return res.json({ status: 'success', note });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: 'error', message: error.message });
+  }
+});
+
+app.post('/notes/:username/:id', async (req, res) => {
+  console.log('POST /notes/:username/:id endpoint reached');
+  const { username, id } = req.params;
+  const { Title, Body } = req.body;
+
+  if (!ObjectId.isValid(id)) {
+    return res.status(400).json({ status: 'error', message: 'Invalid note ID' });
+  }
+
+  try {
+    const note = await Note.findOneAndUpdate(
+      { _id: new ObjectId(id), Username: username },
       { Title, Body },
       { new: true }
     );
 
-    if (!updatedNote) {
+    if (!note) {
       return res.status(404).json({ status: 'error', message: 'Note not found' });
     }
 
-    return res.json({ status: 'success', data: updatedNote });
+    return res.json({ status: 'success', message: 'Note updated successfully' });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ status: 'error', message: 'Error updating note' });
+    return res.status(500).json({ status: 'error', message: error.message });
   }
 });
 

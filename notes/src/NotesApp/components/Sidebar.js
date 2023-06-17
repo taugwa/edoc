@@ -77,7 +77,8 @@ const Sidebar = () => {
         if (status === 'success') {
           console.log(message);
           // Redirect the user to the new note page
-          window.location.href = noteUrl;
+          const newNoteId = noteUrl.split('/').pop(); // Extract the unique ID from the note URL
+          window.location.href = `/notes/${content.Username}/${newNoteId}`;
         } else {
           console.error(message);
         }
@@ -88,7 +89,6 @@ const Sidebar = () => {
       console.error('Error:', error);
     }
   };
-  
   
 console.log("hello11")
   const filteredNotes = notes.filter((note) =>
