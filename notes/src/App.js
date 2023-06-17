@@ -4,7 +4,7 @@ import './index.css';
 import MainBody from './Main/components/MainBody'
 import Login from "./Main/Login"
 import Signup from "./Main/Signup"
-
+import Page from "./NotesApp/page"
 import Welcome from './NotesApp/Welcome'
 
 import { createTheme, ThemeProvider} from '@mui/material'
@@ -39,6 +39,8 @@ function App () {
             <Route path="/signup" element={<div className=""><MainAppBar /><Signup /></div>}/>
             <Route path="/resetpassword" element={<div className=""><MainAppBar /><ResetPassword /></div>}/>
             <Route path = "/Welcome" element = {<div className="notesapp"><Welcome /></div>}/>
+            <Route path = "/notes/:id" element = {<div className="notesapp"><Page /></div>}/>
+
           </Routes>
 
 

@@ -7,6 +7,7 @@ import plusIcon from './images/plus.png';
 import bookmarkIcon from './images/bookmark.png';
 import documentIcon from './images/document.png';
 
+
 import Note from '../functions/NoteView';
 
 const Sidebar = () => {
@@ -51,16 +52,45 @@ const Sidebar = () => {
       },
     });
   };
-
-  const handleNewNoteClick = (event) => {
+  const handleNewNoteClick = async (event) => {
     event.preventDefault();
-    updateContent({
-      page: Note,
-      selectedNote: { Title: '', Body: '' },
-      content: { Username: content.Username },
-    });
+  
+    try {
+      const response = await fetch('http://localhost:3000/notes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({
+          Username: content.Username,
+          Title: '',
+          Body: '',
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        const { status, message, noteUrl } = data;
+  
+        if (status === 'success') {
+          console.log(message);
+          // Redirect the user to the new note page
+          window.location.href = noteUrl;
+        } else {
+          console.error(message);
+        }
+      } else {
+        console.error('Error:', response.status);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
-
+  
+  
+console.log("hello11")
   const filteredNotes = notes.filter((note) =>
   note.Title.toLowerCase().includes(searchTerm.toLowerCase())
 );

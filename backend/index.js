@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const secret = "randomnumbersecret";
 require("./UserDetails");
 require("./Note");
+const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
@@ -110,43 +111,32 @@ app.post("/resetpassword", async(req,res) => {
 
 
 app.post("/notes", async (req, res) => {
-  const { Username, NoteID, Title, Body } = req.body;
+  const { Username, Title, Body } = req.body;
   const user = await User.findOne({ Username });
+
   try {
     if (!user) {
       return res.status(404).json({ status: "error", message: "User not found" });
     }
 
-    if (NoteID != "") {
-      const existingNote = await Note.findById(NoteID);
-      if (existingNote) {
-        existingNote.Title = Title;
-        existingNote.Body = Body;
-        await existingNote.save();
-        return  res.status(201).json({ status: "editsuccess", message: "Note created successfully", existingNote });
-    
-      } else {
-        return res.status(404).json({ status: "error", message: "User not found" });
-      }
-      
-    } else {
-      const note = await Note.create({ Title, Body });
-      user.notes.push(note._id);
-      await user.save();
-      return res.status(201).json({ status: "success", message: "Note created successfully", note });
-    }
+    const note = new Note({
+      Title,
+      Body,
+    });
 
-    
-    //const note = await Note.create({ Title, Body });
-    //user.notes.push(note._id);
-    //await user.save();
+    await note.save();
 
-    //return res.status(201).json({ status: "success", message: "Note created successfully", note });
+    user.notes.push(note._id);
+    await user.save();
+
+    const noteUrl = `/notes/${note._id}`; // Generate the URL for the new note
+    return res.status(201).json({ status: "success", message: "Note created successfully", noteUrl });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ status: "error", message: "Error creating note" });
   }
 });
+
 
 
 app.get('/notes/:Username', async (req, res) => {
@@ -164,6 +154,45 @@ app.get('/notes/:Username', async (req, res) => {
     return res.status(500).json({ status: 'error', message: 'Error retrieving notes' });
   }
 });
+
+
+app.get('/notes/:id', async (req, res) => {
+  const noteId = req.params.id;
+  try {
+    const note = await Note.findById(noteId);
+    if (!note) {
+      return res.status(404).json({ status: 'error', message: 'Note not found' });
+    }
+    return res.status(200).json({ status: 'success', note });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', message: 'Error retrieving note' });
+  }
+});
+
+app.post('/notes/:id', async (req, res) => {
+  console.log('POST /notes/:id endpoint reached');
+  const noteId = req.params.id;
+  const { Title, Body } = req.body;
+
+  try {
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: new ObjectId(noteId) },
+      { Title, Body },
+      { new: true }
+    );
+
+    if (!updatedNote) {
+      return res.status(404).json({ status: 'error', message: 'Note not found' });
+    }
+
+    return res.json({ status: 'success', data: updatedNote });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: 'error', message: 'Error updating note' });
+  }
+});
+
 
 
 app.listen(3000, () => {
