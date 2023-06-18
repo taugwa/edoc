@@ -39,7 +39,7 @@ function App () {
             <Route path="/signup" element={<div className=""><MainAppBar /><Signup /></div>}/>
             <Route path="/resetpassword" element={<div className=""><MainAppBar /><ResetPassword /></div>}/>
             <Route path = "/Welcome" element = {<div className="notesapp"><Welcome /></div>}/>
-            <Route path="/notes/:Username/:id" element={<div className="notesapp"><Page /></div>} />
+            <Route path="/notes/:Username/:NoteId" element={<div className="notesapp"><Page /></div>} />
 
           </Routes>
 
