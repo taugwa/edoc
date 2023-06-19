@@ -179,7 +179,7 @@ app.get('/notes/:Username/:NoteId', async (req, res) => {
 
   try {
     // Fetch the note from the database
-    const note = await Note.findOne({ Username: Username, _id: NoteId });
+    const note = await Note.findOne({ _id: mongoose.Types.ObjectId.createFromHexString(NoteId) });
     if (!note) {
       return res.status(404).json({ status: 'error', message: 'Note not found' });
     }
@@ -210,6 +210,7 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
     // Find the note by its _id in the notes array
     const note = user.notes.find((note) => note._id.toString() === NoteId);
     console.log('User notes:', user.notes);
+    console.log('User notes:', note);
 
     if (!note) {
       // Create a new note object
@@ -218,7 +219,7 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
         Title,
         Body,
       });
-
+       
       // Add the new note to the notes array
       user.notes.push(newNote);
     } else {
@@ -228,7 +229,7 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
     }
 
     // Save the updated user document
-    await user.save();
+    await note.save();
     console.log("trying"+ Title);
     console.log("trying body" + Body);
 
