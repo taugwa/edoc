@@ -43,14 +43,9 @@ const Sidebar = () => {
   }, [content.Username]);
 
   const handleNoteClick = (selectedNote) => {
-    updateContent({
-      page: Note,
-      selectedNote: {
-        NoteID: selectedNote._id,
-        Title: selectedNote.Title,
-        Body: selectedNote.Body,
-      },
-    });
+    const noteId = selectedNote._id;
+    const noteUrl = `/notes/${content.Username}/${noteId}`;
+    window.location.href = noteUrl;
   };
   const handleNewNoteClick = async (event) => {
     event.preventDefault();
