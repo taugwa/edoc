@@ -1,6 +1,16 @@
-import React, { Component } from "react";
-import UserLandingPage from "./UserLandingPage";
-import { AppProvider } from "./components/AppContext";
+import React, { Component, useContext, useEffect } from 'react';
+import SearchSubSidebar from './components/SearchSubSidebar'
+import BookmarksSubSidebar from './components/BookmarksSubSidebar'
+import Sidebar from './components/Sidebar';
+import SubSidebar from './components/SubSidebar';
+import { Grid } from '@mui/material';
+import HiUser from './HiUser';
+import LoginSignupButton from '../Main/components/LoginSignupButton';
+import { InputBase } from "@mui/material";
+
+import Content from './components/Content'
+import { AppProvider,AppContext } from './components/AppContext';
+
 
 class Welcome extends Component {
   constructor(props) {
@@ -31,11 +41,15 @@ class Welcome extends Component {
 
   render() {
     return (
-      <div>
+      
         <AppProvider>
-          <UserLandingPage Username={this.state.Welcome.Username} />
+
+                  <HiUser Username={this.state.Welcome.Username}/>
+         
         </AppProvider>
-      </div>
+
+
+      
     );
   }
 }

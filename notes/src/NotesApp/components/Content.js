@@ -1,4 +1,4 @@
-import HiUser from '../functions/HiUser'
+import HiUser from '../HiUser'
 
 import Note from '../functions/NoteView'
 

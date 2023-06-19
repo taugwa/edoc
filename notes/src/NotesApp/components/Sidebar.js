@@ -86,7 +86,7 @@ const Sidebar = () => {
   };
   
   
-console.log("hello11")
+
   const filteredNotes = notes.filter((note) =>
   note.Title.toLowerCase().includes(searchTerm.toLowerCase())
 );

@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import HiUser from '../functions/HiUser'
+import HiUser from '../HiUser'
 import Note from '../functions/NoteView';
 
 // Create the context
