@@ -6,7 +6,6 @@ const Page = () => {
   const { Username, NoteId } = useParams();
   const [noteTitle, setNoteTitle] = useState('');
   const [noteBody, setNoteBody] = useState('');
-  
 
   useEffect(() => {
     fetchNote();
@@ -85,7 +84,7 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="page-container">
       <form className="form" onSubmit={saveNote}>
         <InputBase
           type="text"
