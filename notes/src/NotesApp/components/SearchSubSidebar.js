@@ -1,15 +1,13 @@
-import React, { useContext,useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from './AppContext';
-
+import { Link, useNavigate } from 'react-router-dom';
 import documentIcon from './images/document.png';
 
-
-const SearchSubSidebar = ({Username}) => {
+const SearchSubSidebar = () => {
   const { content, updateContent } = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState('');
- // const { content, updateContent } = useContext(AppContext);
   const [notes, setNotes] = useState([]);
- // const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserNotes = async () => {
@@ -41,26 +39,24 @@ const SearchSubSidebar = ({Username}) => {
   const handleSearchInputChange = (event) => {
     const searchTerm = event.target.value;
     setSearchTerm(searchTerm);
-    updateContent({ searchTerm }); 
+    updateContent({ searchTerm });
   };
 
-  const handleSearchNoteClick = (searchNoteTitle) => {
-    const selectedNote = notes.find((note) => note.Title === searchNoteTitle.Title);
-    console.log("HEY" + selectedNote._id)
-    if (selectedNote) {
-      updateContent({ 
-        selectedNote: { 
-          NoteId: selectedNote._id,
-          Title: selectedNote.Title, 
-          Body: selectedNote.Body } });
-    } else {
-      console.error('Note not found:', searchNoteTitle);
-    }
+  const handleSearchNoteClick = (selectedNote) => {
+    const { _id, Title, Body } = selectedNote;
+    navigate(`/notes/${content.Username}/${_id}`); 
+    updateContent({
+      selectedNote: {
+        NoteId: _id,
+        Title,
+        Body,
+      },
+    });
   };
+
   const filteredNotes = notes.filter((note) =>
-  note.Title.toLowerCase().includes(searchTerm.toLowerCase())
-);
- 
+    note.Title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="subsidebar">
@@ -73,32 +69,25 @@ const SearchSubSidebar = ({Username}) => {
           placeholder="Search notes..."
         />
       </form>
-      {/* <div className="search-results">
-        {notes
-          .filter((note) =>
-            note.Title.toLowerCase().includes(searchTerm.toLowerCase())
-          )
-          .map((note) => (
-            <div key={note.id} className="note-item">
-              <span>{note.Title}</span>
-            </div>
-          ))}
-      </div> */}
-       <div className="sidebarnotes">
+      <div className="sidebarnotes">
         {filteredNotes.map((note) => (
           <div
             className="sidebarnotes-allbuttons"
             key={note._id}
             onClick={() => handleSearchNoteClick(note)}
           >
-            <button className="sidebarnotes-button">
+            <Link
+              to={`/notes/${content.Username}/${note._id}`}
+              className="sidebarnotes-button"
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
               <img
                 src={documentIcon}
                 alt="Note"
                 style={{ width: '19px', paddingRight: '15px' }}
               />
               {note.Title}
-            </button>
+            </Link>
           </div>
         ))}
       </div>
