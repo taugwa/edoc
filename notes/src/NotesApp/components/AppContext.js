@@ -33,14 +33,16 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
+  const updateContent = (newContent) => {
+    setContent((prevContent) => ({
+      ...prevContent,
+      ...newContent,
+    }));
+  };
+  
   useEffect(() => {
-    // Store bookmarks in local storage whenever it changes
     localStorage.setItem('bookmarks', JSON.stringify(content.bookmarks));
   }, [content.bookmarks]);
-
-  const updateContent = (newContent) => {
-    setContent({ ...content, ...newContent });
-  };
 
   return (
     <AppContext.Provider value={{ content, updateContent }}>

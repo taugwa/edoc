@@ -142,8 +142,8 @@ app.post("/notes", async (req, res) => {
 app.get('/notes/:Username', async (req, res) => {
   try {
     const { Username } = req.params;
-   console.log("get notes username");
-   console.log(Username);
+ //  console.log("get notes username");
+  // console.log(Username);
     const user = await UserDetails.findOne({ Username });
     if (!user) {
       return res.status(404).json({ status: 'error', message: 'User not found' });
@@ -187,13 +187,13 @@ app.get('/notes/:Username/:NoteId', async (req, res) => {
     return res.json({ status: 'success', note });
   } catch (error) {
     console.error(error);
-    console.log("hi theres an error");
+  //  console.log("hi theres an error");
     return res.status(500).json({ status: 'error', message: error.message });
   }
 });
 
 app.post('/notes/:Username/:NoteId', async (req, res) => {
-  console.log('POST /notes/:Username/:NoteId endpoint reached');
+ // console.log('POST /notes/:Username/:NoteId endpoint reached');
   const { Username, NoteId } = req.params;
   const { Title, Body } = req.body;
  // console.log('Received username:', Username);
@@ -201,7 +201,7 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
 
   try {
     // Find the user document and populate the notes field
-    console.log('Received username:', Username);
+   // console.log('Received username:', Username);
     const user = await UserDetails.findOne({ Username }).populate('notes');
 
     if (!user) {
@@ -210,8 +210,8 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
 
     // Find the note by its _id in the notes array
     const note = user.notes.find((note) => note._id.toString() === NoteId);
-    console.log('User notes:', user.notes);
-    console.log('User notes:', note);
+  //  console.log('User notes:', user.notes);
+   // console.log('User notes:', note);
 
     if (!note) {
       // Create a new note object
@@ -231,8 +231,8 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
 
     // Save the updated user document
     await note.save();
-    console.log("trying"+ Title);
-    console.log("trying body" + Body);
+   // console.log("trying"+ Title);
+    //console.log("trying body" + Body);
 
     return res.json({ status: 'success', message: 'Note saved successfully' });
   } catch (error) {
