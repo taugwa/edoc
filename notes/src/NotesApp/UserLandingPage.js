@@ -8,41 +8,52 @@ import Note from './functions/NoteView';
 import LoginSignupButton from '../Main/components/LoginSignupButton';
 import { InputBase } from "@mui/material";
 
+
 import Content from './components/Content'
-import { AppProvider,AppContext } from './components/AppContext';
+import { AppContext } from './components/AppContext';
 
+import { Typography } from "@mui/material";
+import HiUser from './functions/HiUser';
+import Page from './page';
 
-
-function UserLandingPage({Username}) {
+function UserLandingPage({Username, PageType}) {
 
   const { content, updateContent } = useContext(AppContext);
   useEffect(() => {
       updateContent({ Username: Username });
     }, [Username]);
+    
+    let renderedComponent;
 
-  
+    if (PageType === 'HiUser') {
+        renderedComponent = <HiUser Username={Username} />;
+    } else if (PageType === 'Page') {
+        renderedComponent = <Page Username={Username} />;
+    }
 
   return (
 
-      <div>
-          <Grid container  sx={{ minHeight: '100vh' }} wrap="nowrap">
-              <Grid item>
-                  <Sidebar Username={Username}/>
-              </Grid>
-              
-              { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
-              { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
-             
-              <Grid item xs={12}>
-                  <Content Username={Username}/>
-         
-              </Grid>
-              
-          </Grid>
-          
-      </div>
+    <div>
+        <Grid container  sx={{ minHeight: '100vh' }} wrap="nowrap">
+            <Grid item>
+                <Sidebar Username={Username}/>
+            </Grid>
+            
+            { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
+            { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
+           
+            <Grid item xs={12}>
+                
+            {renderedComponent}
+            </Grid>
+            
+        </Grid>
+        
+    </div>
 
-  )
+)
 }
 
 export default UserLandingPage
+
+

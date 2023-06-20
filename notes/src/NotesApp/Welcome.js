@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserLandingPage from "./UserLandingPage";
+import HiUser from "./functions/HiUser"
 import { AppProvider } from "./components/AppContext";
 
 class Welcome extends Component {
@@ -33,7 +34,11 @@ class Welcome extends Component {
     return (
       <div>
         <AppProvider>
-          <UserLandingPage Username={this.state.Welcome.Username} />
+        <UserLandingPage
+            Username={this.state.Welcome.Username}
+            PageType={this.props.PageType} 
+          />
+         
         </AppProvider>
       </div>
     );

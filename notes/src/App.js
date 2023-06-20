@@ -6,7 +6,10 @@ import Login from "./Main/Login"
 import Signup from "./Main/Signup"
 import Page from "./NotesApp/page"
 import Welcome from './NotesApp/Welcome'
+import UserLandingPage from './NotesApp/UserLandingPage'
 
+import Sidebar from './NotesApp/components/Sidebar'
+import HiUser from './NotesApp/functions/HiUser'
 import { createTheme, ThemeProvider} from '@mui/material'
 import { Route, Routes } from 'react-router-dom';
 import ResetPassword from './Main/ResetPassword';
@@ -34,12 +37,13 @@ function App () {
         <ThemeProvider theme={theme}>
           
           <Routes>
+            <Route component={Sidebar} />
             <Route path="/" element={<div className="mainbg"><MainAppBar /><MainBody /></div>} />
             <Route path="/login" element={<div className=""><MainAppBar /><Login /></div>} />
             <Route path="/signup" element={<div className=""><MainAppBar /><Signup /></div>}/>
             <Route path="/resetpassword" element={<div className=""><MainAppBar /><ResetPassword /></div>}/>
-            <Route path = "/Welcome" element = {<div className="notesapp"><Welcome /></div>}/>
-            <Route path="/notes/:Username/:NoteId" element={<div className="notesapp"><Page /></div>} />
+            <Route path = "/Welcome" element = {<div className="notesapp"><Welcome PageType="HiUser"/></div>}/>
+            <Route path="/notes/:Username/:NoteId" element={<div className="notesapp"><Welcome PageType="Page"/></div>} />
 
           </Routes>
 

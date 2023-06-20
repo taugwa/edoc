@@ -1,11 +1,32 @@
-import React, { useEffect, useState } from 'react';
+
 import { useParams } from 'react-router-dom';
+import React, { Component, useContext, useEffect, useState } from 'react';
+import SearchSubSidebar from './components/SearchSubSidebar'
+import BookmarksSubSidebar from './components/BookmarksSubSidebar'
+import Sidebar from './components/Sidebar';
+import SubSidebar from './components/SubSidebar';
+import { Grid } from '@mui/material';
+import Note from './functions/NoteView';
+import LoginSignupButton from '../Main/components/LoginSignupButton';
 import { InputBase, Button } from '@mui/material';
 
-const Page = () => {
+import { AppContext } from './components/AppContext';
+
+import { styled } from '@mui/system';
+
+const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
+  fontFamily: theme.typography.heading1.fontFamily,
+  fontSize: '50px',
+  fontWeight: 'bold',
+  width: '800px',
+  paddingRight: '10px',
+}));
+
+const Page = (props) => {
   const { Username, NoteId } = useParams();
   const [noteTitle, setNoteTitle] = useState('');
   const [noteBody, setNoteBody] = useState('');
+  const { content, updateContent } = useContext(AppContext);
 
   useEffect(() => {
     fetchNote();
@@ -83,10 +104,11 @@ const Page = () => {
     setNoteBody(event.target.value);
   };
 
+
   return (
-    <div className="page-container">
+    <div className="notearea">
       <form className="form" onSubmit={saveNote}>
-        <InputBase
+        <StyledInputBaseTitle
           type="text"
           value={noteTitle}
           placeholder="Title"
@@ -102,6 +124,46 @@ const Page = () => {
       </form>
     </div>
   );
+  
+/*
+  return (
+      <div>
+            <Grid container  sx={{ minHeight: '100vh' }} wrap="nowrap">
+                <Grid item>
+                    <Sidebar Username={Username}/>
+                </Grid>
+                
+                { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
+                { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
+              
+                <Grid item xs={12}>
+                <div className="page-container">
+        <form className="form" onSubmit={saveNote}>
+          <InputBase
+            type="text"
+            value={noteTitle}
+            placeholder="Title"
+            onChange={handleChangeNoteTitle}
+          />
+          <textarea
+            className="notetextarea"
+            value={noteBody}
+            placeholder="Type here..."
+            onChange={handleChangeNoteBody}
+          />
+          <Button type="submit">Save</Button>
+        </form>
+      </div>
+
+
+         
+              </Grid>
+              
+          </Grid>
+          
+      </div>
+  )
+  */
 };
 
 export default Page;

@@ -6,19 +6,24 @@ import searchIcon from './images/search.png';
 import plusIcon from './images/plus.png';
 import bookmarkIcon from './images/bookmark.png';
 import documentIcon from './images/document.png';
+import { Link } from 'react-router-dom';
 
 
 import Note from '../functions/NoteView';
+import { useHistory } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar = ({Username}) => {
+  console.log(Username + "wowowoow")
   const { content, updateContent } = useContext(AppContext);
+
+
   const [notes, setNotes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchUserNotes = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/notes/${content.Username}`, {
+        const response = await fetch(`http://localhost:3000/notes/${Username}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -37,16 +42,12 @@ const Sidebar = () => {
       }
     };
 
-    if (content.Username) {
+    if (Username) {
       fetchUserNotes();
     }
-  }, [content.Username]);
+  }, [Username]);
 
-  const handleNoteClick = (selectedNote) => {
-    const noteId = selectedNote._id;
-    const noteUrl = `/notes/${content.Username}/${noteId}`;
-    window.location.href = noteUrl;
-  };
+
   const handleNewNoteClick = async (event) => {
     event.preventDefault();
   
@@ -59,7 +60,7 @@ const Sidebar = () => {
           'Access-Control-Allow-Origin': '*',
         },
         body: JSON.stringify({
-          Username: content.Username,
+          Username: Username,
           Title: '',
           Body: '',
         }),
@@ -73,7 +74,11 @@ const Sidebar = () => {
           console.log(message);
           // Redirect the user to the new note page
          const newNoteId = noteUrl.split('/').pop(); // Extract the unique ID from the note URL
-          window.location.href = `/notes/${content.Username}/${newNoteId}`;
+          //window.location.href = `/notes/${Username}/${newNoteId}`;
+          //history.push(`/notes/${Username}/${newNoteId}`);
+          window.history.pushState(null, '', `/notes/${Username}/${newNoteId}`);
+          // Trigger a navigation event to update the UI
+          window.dispatchEvent(new Event('popstate'));
         } else {
           console.error(message);
         }
@@ -85,12 +90,11 @@ const Sidebar = () => {
     }
   };
   
-  
-console.log("hello11")
+
   const filteredNotes = notes.filter((note) =>
   note.Title.toLowerCase().includes(searchTerm.toLowerCase())
 );
- 
+  
   return (
     <div className="sidebar">
       <LogoTitle />
@@ -101,7 +105,7 @@ console.log("hello11")
           style={{ width: '38px', paddingRight: '10px' }}
         />
         <span className="notesapp-sidebar-profile-userName">
-          {content.Username}
+          {Username}
         </span>
       </div>
       <div className="">
@@ -129,7 +133,8 @@ console.log("hello11")
           Bookmarks
         </button>
 
-        <button
+        <Link
+          style={{ textDecoration: 'none', color: 'black' }}
           onClick={handleNewNoteClick}
           className="notesapp-sidebar-function-label"
         >
@@ -139,25 +144,24 @@ console.log("hello11")
             style={{ width: '19px', paddingRight: '15px' }}
           />
           New note
-        </button>
+        </Link>
       </div>
 
       <div className="sidebarnotes">
-        {filteredNotes.map((note) => (
-          <div
-            className="sidebarnotes-allbuttons"
-            key={note._id}
-            onClick={() => handleNoteClick(note)}
-          >
-            <button className="sidebarnotes-button">
+        {filteredNotes.map((existingNote) => (
+     
+            <Link key={existingNote._id} 
+              className="sidebarnotes-button" 
+              to={`/notes/${Username}/${existingNote._id}`}
+              style={{ textDecoration: 'none', color: 'black' }}>
               <img
                 src={documentIcon}
                 alt="Note"
                 style={{ width: '19px', paddingRight: '15px' }}
               />
-              {note.Title}
-            </button>
-          </div>
+              {existingNote.Title}
+            </Link>
+  
         ))}
       </div>
     </div>
