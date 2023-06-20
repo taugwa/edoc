@@ -1,23 +1,25 @@
 import React, { useContext, useEffect } from 'react';
 import { AppContext } from './AppContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import documentIcon from './images/document.png';
 import bookmarkIcon from './images/bookmark.png';
 
 function BookmarksSubSidebar() {
   const { content, updateContent } = useContext(AppContext);
   const { bookmarks, Username } = content;
+  const navigate = useNavigate();
 
   const handleBookmarkClick = (note) => {
     const { NoteId } = note;
     const noteUrl = `/notes/${Username}/${NoteId}`;
-    window.location.href = noteUrl;
+    navigate(noteUrl); 
   };
 
   useEffect(() => {
     const storedBookmarks = localStorage.getItem('bookmarks');
+    console.log('Stored Bookmarks:', storedBookmarks);
     if (storedBookmarks) {
-      updateContent((prevContent) => ({
+     updateContent((prevContent) => ({
         ...prevContent,
         bookmarks: JSON.parse(storedBookmarks),
       }));
@@ -26,6 +28,7 @@ function BookmarksSubSidebar() {
 
   useEffect(() => {
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    console.log('Updated Bookmarks:', bookmarks);
   }, [bookmarks]);
 
   return (
@@ -37,7 +40,11 @@ function BookmarksSubSidebar() {
             key={note.NoteId}
             onClick={() => handleBookmarkClick(note)}
           >
-            <Link to={`/notes/${Username}/${note.NoteId}`} className="sidebarnotes-button">
+            <Link
+              to={`/notes/${Username}/${note.NoteId}`}
+              className="sidebarnotes-button"
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
               <img
                 src={documentIcon}
                 alt="Note"
@@ -63,3 +70,4 @@ function BookmarksSubSidebar() {
 }
 
 export default BookmarksSubSidebar;
+
