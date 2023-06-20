@@ -1,34 +1,31 @@
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
-import Page from '../page';
+import { Link } from 'react-router-dom';
 import documentIcon from './images/document.png';
 
 function BookmarksSubSidebar() {
   const { content, updateContent } = useContext(AppContext);
-  const { bookmarks, Username } = content; 
+  const { bookmarks, Username } = content;
 
   const handleBookmarkClick = (note) => {
     const selectedNote = note;
     console.log(selectedNote);
-  
+
     if (selectedNote) {
       const { _id: NoteId } = selectedNote;
-      const isBookmarked = bookmarks.some((note) => note.NoteId === NoteId);
-  
+      const isBookmarked = bookmarks.some((bookmark) => bookmark.NoteId === NoteId);
+
+      let updatedBookmarks;
       if (isBookmarked) {
-        const updatedBookmarks = bookmarks.filter((note) => note.NoteId !== NoteId);
-        updateContent({ ...content, bookmarks: updatedBookmarks });
+        updatedBookmarks = bookmarks.filter((bookmark) => bookmark.NoteId !== NoteId);
       } else {
-        // Add bookmark
-        const updatedBookmarks = [...bookmarks, { NoteId }];
-        updateContent({ ...content, bookmarks: updatedBookmarks });
+        updatedBookmarks = [...bookmarks, { NoteId }];
       }
-  
-      // Redirect to note page
-      window.location.href = `/notes/${Username}/${NoteId}`;
+
+      updateContent({ ...content, bookmarks: updatedBookmarks });
     }
   };
-  
+
   return (
     <div className="subsidebar">
       <h3>Bookmarked Notes</h3>
@@ -39,14 +36,14 @@ function BookmarksSubSidebar() {
             key={note.NoteId}
             onClick={() => handleBookmarkClick(note)}
           >
-            <button className="sidebarnotes-button">
+            <Link to={`/notes/${Username}/${note.NoteId}`} className="sidebarnotes-button">
               <img
                 src={documentIcon}
                 alt="Note"
                 style={{ width: '19px', paddingRight: '15px' }}
               />
               {note.Title}
-            </button>
+            </Link>
           </div>
         ))
       ) : (

@@ -7,8 +7,10 @@ const Toolbar = () => {
   const { selectedNote, bookmarks } = content;
 
   const handleBookmarkClick = () => {
+
     if (selectedNote) {
       const { NoteId, Title, Body } = selectedNote;
+      console.log("handle" + selectedNote.NoteId);
       const isBookmarked = bookmarks.some((note) => note.NoteId === NoteId);
       console.log(NoteId);
       console.log(Title);
