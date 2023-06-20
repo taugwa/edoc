@@ -1,16 +1,15 @@
-
-import { useParams } from 'react-router-dom';
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom'; 
 import SearchSubSidebar from '../components/SearchSubSidebar'
 import BookmarksSubSidebar from '../components/BookmarksSubSidebar'
 import Sidebar from '../components/Sidebar';
-import SubSidebar from '../components/SubSidebar';
 import { Grid } from '@mui/material';
 
 import LoginSignupButton from '../../Main/components/LoginSignupButton';
 import { InputBase, Button } from '@mui/material';
-
+import Toolbar from '../components/Toolbar';
 import { AppContext } from '../components/AppContext';
+
 
 import { styled } from '@mui/system';
 
@@ -22,17 +21,25 @@ const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
   paddingRight: '10px',
 }));
 
-const Page = (props) => {
-  const { Username, NoteId } = useParams();
-  const [noteTitle, setNoteTitle] = useState('');
-  const [noteBody, setNoteBody] = useState('');
+
+const Page = () => {
   const { content, updateContent } = useContext(AppContext);
+  const { selectedNote } = content;
+  const { Username, NoteId } = useParams();
+
+  const [noteTitle, setNoteTitle] = useState(selectedNote?.Title || '');
+  const [noteBody, setNoteBody] = useState(selectedNote?.Body || '');
 
   useEffect(() => {
     fetchNote();
-    console.log(NoteId);
   }, [Username, NoteId]);
 
+  useEffect(() => {
+    if (selectedNote.NoteId === NoteId) {
+      setNoteTitle(selectedNote.Title || '');
+      setNoteBody(selectedNote.Body || '');
+    }
+  }, [selectedNote, NoteId]);
 
   const fetchNote = () => {
     fetch(`http://localhost:3000/notes/${Username}/${NoteId}`, {
@@ -45,6 +52,13 @@ const Page = (props) => {
       .then((data) => {
         const { status, note } = data;
         if (status === 'success') {
+          updateContent({
+            selectedNote: {
+              NoteId: NoteId,
+              Title: note.Title || '',
+              Body: note.Body || '',
+            },
+          });
           setNoteTitle(note.Title || '');
           setNoteBody(note.Body || '');
         } else {
@@ -87,12 +101,10 @@ const Page = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("hi" + NoteId);
         if (data.status === 'success') {
             console.log("hi" + noteTitle);
             console.log("hi" + noteBody);
-          //alert('Note submitted!');
-       
+
         } else if (data.status === 'editsuccess') {
           //alert('Note successfully edited!');
         } else if (data.status === 'error') {
@@ -101,7 +113,6 @@ const Page = (props) => {
         //window.location.reload();
       })
       .catch((error) => {
-       
         console.error('Error:', error);
         alert('An error occurred while submitting the note');
       });
@@ -118,6 +129,7 @@ const Page = (props) => {
 
   return (
     <div className="notearea">
+      <Toolbar selectedNote={selectedNote} updateContent={updateContent} />
       <form className="form" onSubmit={saveNote}>
         <StyledInputBaseTitle
           type="text"
@@ -131,7 +143,7 @@ const Page = (props) => {
           placeholder="Type here..."
           onChange={handleChangeNoteBody}
         />
-        <Button type="submit">Save</Button>
+
       </form>
     </div>
   );

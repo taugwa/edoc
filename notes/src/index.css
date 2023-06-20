@@ -198,9 +198,6 @@ html, body, #root {
 
 
 
-
-
-
 .notesapp {
   width:100vw;
   height:100vh;
@@ -232,6 +229,7 @@ html, body, #root {
   border-right: 1px solid #E4E2E2;
   padding-top:15px;
   margin:10px;
+  padding-right: 10px;
   
 }
 
@@ -242,6 +240,18 @@ html, body, #root {
   border-style: none;
   background-color: #E4E2E2;
 
+
+}
+
+.bookmark-subsidebar {
+  background-color: white;
+  height:100%;
+  width: 220px;
+  border-right: 1px solid #E4E2E2;
+  padding-top:15px;
+  margin:10px;
+  padding-right: 15px;
+  padding-top: 20px;
 
 }
 
@@ -322,7 +332,7 @@ html, body, #root {
   margin:10px;
   font-weight:bold;
   padding-left:15px;
-  padding-top:25px;
+  padding-top:10px;
   font-size:50px
 }
 
@@ -338,4 +348,38 @@ html, body, #root {
   resize: none;
   font-family: var(--font-body);
   font-size: 20px;
+}
+
+.nobookmark {
+  font-family: var(--font-body);
+  line-height: 1.8; 
+  font-size: 15.5px;
+  text-align: justify;
+}
+
+.toolbar {
+  display: flex; /* Display the toolbar as a flex container */
+  align-items: center; /* Align items vertically in the center */
+
+  height: 25px;
+  margin-top: 10px;
+  padding: 5px;
+  padding-top: 8px;
+  justify-content: left;
+  background-color: #E4E2E2;
+  border-radius: 5px;
+  width: 33px;
+}
+
+.toolbar-button {
+  background: none;
+  border: none;
+  outline: none;
+}
+.toolbar-button:hover {
+  cursor: pointer;
+}
+
+.toolbar-button-img {
+  width: 20px;
 }

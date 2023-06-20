@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
 import bookmarkIcon from './images/bookmark.png';
+import bookmarkFilledIcon from './images/bookmarkFilled.png';
 
 const Toolbar = () => {
   const { content, updateContent } = useContext(AppContext);
@@ -27,14 +28,16 @@ const Toolbar = () => {
       }
     }
   };
+  const isBookmarked = selectedNote && bookmarks.some((note) => note.NoteId === selectedNote.NoteId);
 
   return (
-    <div>
+    <div className='toolbar'>
       <button className="toolbar-button" onClick={handleBookmarkClick}>
-        <img src={bookmarkIcon} className="toolbar-button-img" alt="Bookmark" />
+        <img src={isBookmarked ? bookmarkFilledIcon : bookmarkIcon} className="toolbar-button-img" alt="Bookmark" />
       </button>
     </div>
   );
+
 };
 
 export default Toolbar;
