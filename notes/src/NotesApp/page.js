@@ -8,28 +8,22 @@ const Page = () => {
   const { content, updateContent } = useContext(AppContext);
   const { selectedNote } = content;
   const { Username, NoteId } = useParams();
-   console.log("page" + NoteId);
-  const [noteTitle, setNoteTitle] = useState(selectedNote?.note?.Title || '');
-  const [noteBody, setNoteBody] = useState(selectedNote?.note?.Body || '');
-  
+
+  const [noteTitle, setNoteTitle] = useState(selectedNote?.Title || '');
+  const [noteBody, setNoteBody] = useState(selectedNote?.Body || '');
+
   useEffect(() => {
     fetchNote();
   }, [Username, NoteId]);
 
   useEffect(() => {
-  
-
     if (selectedNote.NoteId === NoteId) {
       setNoteTitle(selectedNote.Title || '');
       setNoteBody(selectedNote.Body || '');
     }
-
   }, [selectedNote, NoteId]);
-  
 
   const fetchNote = () => {
-      console.log("fetch" + NoteId);
-
     fetch(`http://localhost:3000/notes/${Username}/${NoteId}`, {
       method: 'GET',
       headers: {
@@ -57,7 +51,7 @@ const Page = () => {
         console.error('Error:', error);
       });
   };
-  
+
   const saveNote = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -100,7 +94,7 @@ const Page = () => {
   const handleChangeNoteBody = (event) => {
     setNoteBody(event.target.value);
   };
-console.log(selectedNote);
+
   return (
     <div className="page-container">
       <Toolbar selectedNote={selectedNote} updateContent={updateContent} />
@@ -124,4 +118,3 @@ console.log(selectedNote);
 };
 
 export default Page;
-
