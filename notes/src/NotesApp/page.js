@@ -1,19 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { InputBase, Button } from '@mui/material';
+import Toolbar from './components/Toolbar';
+import { AppContext } from '../NotesApp/components/AppContext';
 
 const Page = () => {
+  const { content, updateContent } = useContext(AppContext);
+  const { selectedNote } = content;
   const { Username, NoteId } = useParams();
-  const [noteTitle, setNoteTitle] = useState('');
-  const [noteBody, setNoteBody] = useState('');
-
+   console.log("page" + NoteId);
+  const [noteTitle, setNoteTitle] = useState(selectedNote?.note?.Title || '');
+  const [noteBody, setNoteBody] = useState(selectedNote?.note?.Body || '');
+  
   useEffect(() => {
     fetchNote();
-    console.log(NoteId);
   }, [Username, NoteId]);
 
+  useEffect(() => {
+  
+
+    if (selectedNote.NoteId === NoteId) {
+      setNoteTitle(selectedNote.Title || '');
+      setNoteBody(selectedNote.Body || '');
+    }
+
+  }, [selectedNote, NoteId]);
+  
 
   const fetchNote = () => {
+      console.log("fetch" + NoteId);
+
     fetch(`http://localhost:3000/notes/${Username}/${NoteId}`, {
       method: 'GET',
       headers: {
@@ -24,6 +40,13 @@ const Page = () => {
       .then((data) => {
         const { status, note } = data;
         if (status === 'success') {
+          updateContent({
+            selectedNote: {
+              NoteId: NoteId,
+              Title: note.Title || '',
+              Body: note.Body || '',
+            },
+          });
           setNoteTitle(note.Title || '');
           setNoteBody(note.Body || '');
         } else {
@@ -34,7 +57,7 @@ const Page = () => {
         console.error('Error:', error);
       });
   };
-
+  
   const saveNote = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
@@ -55,12 +78,8 @@ const Page = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("hi" + NoteId);
         if (data.status === 'success') {
-            console.log("hi" + noteTitle);
-            console.log("hi" + noteBody);
           alert('Note submitted!');
-       
         } else if (data.status === 'editsuccess') {
           alert('Note successfully edited!');
         } else if (data.status === 'error') {
@@ -69,7 +88,6 @@ const Page = () => {
         window.location.reload();
       })
       .catch((error) => {
-       
         console.error('Error:', error);
         alert('An error occurred while submitting the note');
       });
@@ -82,9 +100,10 @@ const Page = () => {
   const handleChangeNoteBody = (event) => {
     setNoteBody(event.target.value);
   };
-
+console.log(selectedNote);
   return (
     <div className="page-container">
+      <Toolbar selectedNote={selectedNote} updateContent={updateContent} />
       <form className="form" onSubmit={saveNote}>
         <InputBase
           type="text"
@@ -105,3 +124,4 @@ const Page = () => {
 };
 
 export default Page;
+

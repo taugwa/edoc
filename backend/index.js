@@ -187,6 +187,7 @@ app.get('/notes/:Username/:NoteId', async (req, res) => {
     return res.json({ status: 'success', note });
   } catch (error) {
     console.error(error);
+    console.log("hi theres an error");
     return res.status(500).json({ status: 'error', message: error.message });
   }
 });

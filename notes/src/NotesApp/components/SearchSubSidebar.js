@@ -45,14 +45,13 @@ const SearchSubSidebar = () => {
   };
 
   const handleSearchNoteClick = (searchNoteTitle) => {
-    console.log("clicked");
     const selectedNote = notes.find((note) => note.Title === searchNoteTitle.Title);
-    console.log(selectedNote._id)
+    console.log("HEY" + selectedNote._id)
     if (selectedNote) {
       updateContent({ 
         page: Note,
         selectedNote: { 
-          NoteID: selectedNote._id,
+          NoteId: selectedNote._id,
           Title: selectedNote.Title, 
           Body: selectedNote.Body } });
     } else {

@@ -13,7 +13,7 @@ const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
 
 const Note = () => {
   const { content, updateContent } = useContext(AppContext);
-  const [noteID, setNoteID] = useState('');
+  const [NoteId, setNoteID] = useState('');
   const [noteTitle, setNoteTitle] = useState('');
   const [noteBody, setNoteBody] = useState('');
 
@@ -21,7 +21,7 @@ const Note = () => {
     if (content.selectedNote) {
       setNoteTitle(content.selectedNote.Title || '');
       setNoteBody(content.selectedNote.Body || '');
-      setNoteID(content.selectedNote.NoteID || '' )
+      setNoteID(content.selectedNote.NoteId || '' )
     } else {
       setNoteTitle('');
       setNoteBody('');
@@ -52,7 +52,7 @@ const Note = () => {
       },
       body: JSON.stringify({
         Username,
-        NoteID: noteID,
+        NoteId: NoteId,
         Title: noteTitle,
         Body: noteBody,
       }),
