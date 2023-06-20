@@ -1,16 +1,16 @@
 
 import { useParams } from 'react-router-dom';
 import React, { Component, useContext, useEffect, useState } from 'react';
-import SearchSubSidebar from './components/SearchSubSidebar'
-import BookmarksSubSidebar from './components/BookmarksSubSidebar'
-import Sidebar from './components/Sidebar';
-import SubSidebar from './components/SubSidebar';
+import SearchSubSidebar from '../components/SearchSubSidebar'
+import BookmarksSubSidebar from '../components/BookmarksSubSidebar'
+import Sidebar from '../components/Sidebar';
+import SubSidebar from '../components/SubSidebar';
 import { Grid } from '@mui/material';
-import Note from './functions/NoteView';
-import LoginSignupButton from '../Main/components/LoginSignupButton';
+
+import LoginSignupButton from '../../Main/components/LoginSignupButton';
 import { InputBase, Button } from '@mui/material';
 
-import { AppContext } from './components/AppContext';
+import { AppContext } from '../components/AppContext';
 
 import { styled } from '@mui/system';
 
@@ -56,8 +56,19 @@ const Page = (props) => {
       });
   };
 
+
+  useEffect(() => {
+    const autosaveTimeout = setTimeout(saveNote, 200); // Set a delay of 2000 milliseconds (2 seconds) for autosave
+    return () => {
+      clearTimeout(autosaveTimeout);
+    };
+  }, [noteTitle, noteBody]); // Run the autosave effect whenever the noteTitle or noteBody changes
+
+
+
+
   const saveNote = (e) => {
-    e.preventDefault();
+    //e.preventDefault();
     const token = localStorage.getItem('token');
     fetch(`http://localhost:3000/notes/${Username}/${NoteId}`, {
       method: 'POST',
@@ -80,14 +91,14 @@ const Page = (props) => {
         if (data.status === 'success') {
             console.log("hi" + noteTitle);
             console.log("hi" + noteBody);
-          alert('Note submitted!');
+          //alert('Note submitted!');
        
         } else if (data.status === 'editsuccess') {
-          alert('Note successfully edited!');
+          //alert('Note successfully edited!');
         } else if (data.status === 'error') {
           alert('Error submitting note');
         }
-        window.location.reload();
+        //window.location.reload();
       })
       .catch((error) => {
        
@@ -125,45 +136,6 @@ const Page = (props) => {
     </div>
   );
   
-/*
-  return (
-      <div>
-            <Grid container  sx={{ minHeight: '100vh' }} wrap="nowrap">
-                <Grid item>
-                    <Sidebar Username={Username}/>
-                </Grid>
-                
-                { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
-                { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
-              
-                <Grid item xs={12}>
-                <div className="page-container">
-        <form className="form" onSubmit={saveNote}>
-          <InputBase
-            type="text"
-            value={noteTitle}
-            placeholder="Title"
-            onChange={handleChangeNoteTitle}
-          />
-          <textarea
-            className="notetextarea"
-            value={noteBody}
-            placeholder="Type here..."
-            onChange={handleChangeNoteBody}
-          />
-          <Button type="submit">Save</Button>
-        </form>
-      </div>
-
-
-         
-              </Grid>
-              
-          </Grid>
-          
-      </div>
-  )
-  */
 };
 
 export default Page;

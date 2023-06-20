@@ -1,10 +1,10 @@
 import React, { useContext,useEffect, useState } from 'react';
 import { AppContext } from './AppContext';
-import Note from "../functions/NoteView";
+
 import documentIcon from './images/document.png';
 
 
-const SearchSubSidebar = () => {
+const SearchSubSidebar = ({Username}) => {
   const { content, updateContent } = useContext(AppContext);
   const [searchTerm, setSearchTerm] = useState('');
  // const { content, updateContent } = useContext(AppContext);
@@ -50,7 +50,6 @@ const SearchSubSidebar = () => {
     console.log(selectedNote._id)
     if (selectedNote) {
       updateContent({ 
-        page: Note,
         selectedNote: { 
           NoteID: selectedNote._id,
           Title: selectedNote.Title, 

@@ -4,7 +4,7 @@ import './index.css';
 import MainBody from './Main/components/MainBody'
 import Login from "./Main/Login"
 import Signup from "./Main/Signup"
-import Page from "./NotesApp/page"
+import Page from "./NotesApp/functions/page"
 import Welcome from './NotesApp/Welcome'
 import UserLandingPage from './NotesApp/UserLandingPage'
 
@@ -33,7 +33,7 @@ const theme = createTheme({
 function App () {
   
   return (
-      <div className>
+      <div>
         <ThemeProvider theme={theme}>
           
           <Routes>

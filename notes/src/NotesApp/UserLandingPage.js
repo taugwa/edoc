@@ -4,7 +4,7 @@ import BookmarksSubSidebar from './components/BookmarksSubSidebar'
 import Sidebar from './components/Sidebar';
 import SubSidebar from './components/SubSidebar';
 import { Grid } from '@mui/material';
-import Note from './functions/NoteView';
+
 import LoginSignupButton from '../Main/components/LoginSignupButton';
 import { InputBase } from "@mui/material";
 
@@ -14,7 +14,7 @@ import { AppContext } from './components/AppContext';
 
 import { Typography } from "@mui/material";
 import HiUser from './functions/HiUser';
-import Page from './page';
+import Page from './functions/page';
 
 function UserLandingPage({Username, PageType}) {
 
@@ -39,7 +39,7 @@ function UserLandingPage({Username, PageType}) {
                 <Sidebar Username={Username}/>
             </Grid>
             
-            { content.searchSubSidebar && (<Grid item><SearchSubSidebar/></Grid>)  }
+            { content.searchSubSidebar && (<Grid item><SearchSubSidebar Username={Username}/></Grid>)  }
             { content.bookmarksSubSidebar && (<Grid item xs={2}><BookmarksSubSidebar/></Grid>)  }
            
             <Grid item xs={12}>

@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import HiUser from '../functions/HiUser'
-import Note from '../functions/NoteView';
+
 
 // Create the context
 export const AppContext = createContext();

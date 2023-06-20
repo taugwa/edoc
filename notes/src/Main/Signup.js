@@ -52,7 +52,7 @@ class Signup extends Component {
     <div className="loginBody">
       <h1 className="logintitle">Sign up</h1>
       
-      <form onSubmit = {this.handleSubmit} className= "signupForm">
+      <form onSubmit = {this.handleSubmit} className="signupForm">
         <input type="text" 
         placeholder="Email address..." 
         onChange = {e => this.setState({Email:e.target.value})}
