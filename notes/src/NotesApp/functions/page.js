@@ -5,10 +5,10 @@ import BookmarksSubSidebar from '../components/BookmarksSubSidebar'
 import Sidebar from '../components/Sidebar';
 import { Grid } from '@mui/material';
 import Toolbar from '../components/Toolbar';
-
+import Editor from '../TextEditor';
 import LoginSignupButton from '../../Main/components/LoginSignupButton';
 import { InputBase, Button } from '@mui/material';
-import ToolbarMain from '../components/ToolbarMain';
+
 import { AppContext } from '../components/AppContext';
 import { styled } from '@mui/system';
 
@@ -132,7 +132,7 @@ const Page = () => {
           placeholder="Title"
           onChange={handleChangeNoteTitle}
         />
-      <ToolbarMain value={noteBody} onChange={handleChangeNoteBody} />
+      <Editor value={noteBody} onChange={handleChangeNoteBody} />
      
       </form>
     </div>
