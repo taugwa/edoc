@@ -9,35 +9,21 @@ const ToolbarMain = ({ value, onChange }) => {
     onChange(content);
   };
 
+
   const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'image',
   ];
 
   return (
     <div className="text-editor-toolbar">
-      {formats.map((format) => (
-        <button
-          key={format}
-          className="text-editor-toolbar-button"
-          onClick={() => handleEditorChange(format)}
-        >
-          {format}
-        </button>
-      ))}
-      <ReactQuill
-        ref={editorRef}
-        value={value}
-        onChange={handleEditorChange}
-      />
+      <div className="text-editor-toolbar-row">
+        <div className="text-editor-toolbar-buttons">
+        </div>
+      </div>
+      <ReactQuill 
+      ref={editorRef} 
+      value={value} 
+      onChange={handleEditorChange}
+       />
     </div>
   );
 };

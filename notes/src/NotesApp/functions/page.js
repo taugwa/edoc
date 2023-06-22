@@ -125,14 +125,15 @@ const Page = () => {
 
   return (
     <div className="notearea">
-      <ToolbarMain value={noteBody} onChange={handleChangeNoteBody} />
-      <form className="noteForm" onSubmit={saveNote}>
+       <form className="noteForm" onSubmit={saveNote}>
         <StyledInputBaseTitle
           type="text"
           value={noteTitle}
           placeholder="Title"
           onChange={handleChangeNoteTitle}
         />
+      <ToolbarMain value={noteBody} onChange={handleChangeNoteBody} />
+     
       </form>
     </div>
   );
