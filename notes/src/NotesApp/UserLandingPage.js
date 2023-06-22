@@ -33,7 +33,7 @@ function UserLandingPage({Username, PageType}) {
 
   return (
 
-    <div>
+    <div className='userlandingpage'>
         <Grid container  sx={{ minHeight: '100vh' }} wrap="nowrap">
             <Grid item>
                 <Sidebar Username={Username}/>

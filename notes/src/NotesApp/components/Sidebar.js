@@ -95,6 +95,92 @@ const Sidebar = ({ Username }) => {
 
   return (
     <div className="sidebar">
+      <div className="sidebar-fixed">
+        <LogoTitle />
+        <div className="notesapp-sidebar-profile">
+          <img
+            src={defaultProfilePicture}
+            alt="Default Profile Picture"
+            style={{ width: '38px', paddingRight: '10px' }}
+          />
+          <span className="notesapp-sidebar-profile-userName">
+            {Username}
+          </span>
+        </div>
+        <div className="">
+          <button
+            onClick={() =>
+              updateContent({
+                searchSubSidebar: !content.searchSubSidebar,
+                bookmarksSubSidebar: false
+              })
+            }
+            className="notesapp-sidebar-function-label"
+          >
+            <img
+              src={searchIcon}
+              alt=""
+              style={{ width: '19px', paddingRight: '15px' }}
+            />
+            Search
+          </button>
+  
+          <button
+            onClick={() =>
+              updateContent({
+                bookmarksSubSidebar: !content.bookmarksSubSidebar,
+                searchSubSidebar: false
+              })
+            }
+            className="notesapp-sidebar-function-label"
+          >
+            <img
+              src={bookmarkIcon}
+              alt="Bookmarks"
+              style={{ width: '19px', paddingRight: '15px' }}
+            />
+            Bookmarks
+          </button>
+  
+          <Link
+            style={{ textDecoration: 'none', color: 'black' }}
+            onClick={handleNewNoteClick}
+            className="notesapp-sidebar-function-label"
+          >
+            <img
+              src={plusIcon}
+              alt="New Note"
+              style={{ width: '19px', paddingRight: '15px' }}
+            />
+            New note
+          </Link>
+        </div>
+      </div>
+  
+      <div className="sidebarnotes-container">
+        <div className="sidebarnotes">
+          {filteredNotes.map((existingNote) => (
+            <Link
+              key={existingNote._id}
+              className="sidebarnotes-button"
+              to={`/notes/${Username}/${existingNote._id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
+              <img
+                src={documentIcon}
+                alt="Note"
+                style={{ width: '19px', paddingRight: '15px' }}
+              />
+              {existingNote.Title}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+  
+  /*return (
+    <div className="sidebar">
          <LogoTitle />
       <div className="notesapp-sidebar-profile">
         <img
@@ -163,7 +249,7 @@ const Sidebar = ({ Username }) => {
         ))}
       </div>
     </div>
-  );
+  );*/
 };
 
 export default Sidebar;

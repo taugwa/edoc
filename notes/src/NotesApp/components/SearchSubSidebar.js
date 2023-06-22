@@ -60,16 +60,20 @@ const SearchSubSidebar = () => {
 
   return (
     <div className="subsidebar">
-      <form>
-        <input
-          type="text"
-          className="search-subsidebar"
-          value={searchTerm}
-          onChange={handleSearchInputChange}
-          placeholder="Search notes..."
-        />
-      </form>
-      <div className="sidebarnotes">
+      <div className='sidebar-fixed'>
+        <form>
+          <input
+            type="text"
+            className="searchbar-subsidebar"
+            value={searchTerm}
+            onChange={handleSearchInputChange}
+            placeholder="Search notes..."
+          />
+        </form>
+      </div>
+
+      <div className="search-sidebarnotes-container">
+      <div className="search-sidebarnotes">
         {filteredNotes.map((note) => (
           <div
             className="sidebarnotes-allbuttons"
@@ -90,6 +94,7 @@ const SearchSubSidebar = () => {
             </Link>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

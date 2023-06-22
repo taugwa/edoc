@@ -32,7 +32,7 @@ class Welcome extends Component {
 
   render() {
     return (
-      <div>
+      <body>
         <AppProvider>
         <UserLandingPage
             Username={this.state.Welcome.Username}
@@ -40,7 +40,7 @@ class Welcome extends Component {
           />
          
         </AppProvider>
-      </div>
+      </body>
     );
   }
 }
