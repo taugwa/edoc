@@ -7,7 +7,7 @@ import { Grid } from '@mui/material';
 
 import LoginSignupButton from '../../Main/components/LoginSignupButton';
 import { InputBase, Button } from '@mui/material';
-import Toolbar from '../components/Toolbar';
+import ToolbarMain from '../components/ToolbarMain';
 import { AppContext } from '../components/AppContext';
 
 
@@ -78,9 +78,6 @@ const Page = () => {
     };
   }, [noteTitle, noteBody]); // Run the autosave effect whenever the noteTitle or noteBody changes
 
-
-
-
   const saveNote = (e) => {
     //e.preventDefault();
     const token = localStorage.getItem('token');
@@ -122,14 +119,13 @@ const Page = () => {
     setNoteTitle(event.target.value);
   };
 
-  const handleChangeNoteBody = (event) => {
-    setNoteBody(event.target.value);
+  const handleChangeNoteBody = (content) => {
+    setNoteBody(content);
   };
-
 
   return (
     <div className="notearea">
-      <Toolbar selectedNote={selectedNote} updateContent={updateContent} />
+      <ToolbarMain value={noteBody} onChange={handleChangeNoteBody} />
       <form className="noteForm" onSubmit={saveNote}>
         <StyledInputBaseTitle
           type="text"
@@ -137,17 +133,9 @@ const Page = () => {
           placeholder="Title"
           onChange={handleChangeNoteTitle}
         />
-        <textarea
-          className="notetextarea"
-          value={noteBody}
-          placeholder="Type here..."
-          onChange={handleChangeNoteBody}
-        />
-
       </form>
     </div>
   );
-  
 };
 
 export default Page;
