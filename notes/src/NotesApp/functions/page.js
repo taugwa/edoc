@@ -4,13 +4,12 @@ import SearchSubSidebar from '../components/SearchSubSidebar'
 import BookmarksSubSidebar from '../components/BookmarksSubSidebar'
 import Sidebar from '../components/Sidebar';
 import { Grid } from '@mui/material';
+import Toolbar from '../components/Toolbar';
 
 import LoginSignupButton from '../../Main/components/LoginSignupButton';
 import { InputBase, Button } from '@mui/material';
 import ToolbarMain from '../components/ToolbarMain';
 import { AppContext } from '../components/AppContext';
-
-
 import { styled } from '@mui/system';
 
 const StyledInputBaseTitle = styled(InputBase)(({ theme }) => ({
@@ -125,6 +124,7 @@ const Page = () => {
 
   return (
     <div className="notearea">
+       <Toolbar selectedNote={selectedNote} updateContent={updateContent} />
        <form className="noteForm" onSubmit={saveNote}>
         <StyledInputBaseTitle
           type="text"
