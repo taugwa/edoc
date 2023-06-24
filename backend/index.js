@@ -9,9 +9,11 @@ const jwt = require("jsonwebtoken");
 const secret = "randomnumbersecret";
 require("./UserDetails");
 require("./Note");
+require("./Folder");
 const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
+const Folder = mongoose.model("Folder");
 const User = mongoose.model("UserDetails");
 const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
 
@@ -235,6 +237,49 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
     //console.log("trying body" + Body);
 
     return res.json({ status: 'success', message: 'Note saved successfully' });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ status: 'error', message: error.message });
+  }
+});
+
+app.get("/folders/:Username", async (req, res) => {
+  try {
+    const { Username } = req.params;
+
+    const user = await UserDetails.findOne({ Username });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const folders = user.folders;
+
+    res.json(folders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch folders" });
+  }
+});
+
+app.post('/folders', async (req, res) => {
+  const { Username, Name, Notes } = req.body;
+
+  try {
+    const user = await UserDetails.findOne({ Username }).populate('folders');
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+
+    const newFolder = new Folder ({
+      Title: Name,
+      Notes,
+    });
+
+    user.folders.push(newFolder);
+    await user.save();
+
+    return res.json({ status: 'success', message: 'Folder created successfully!' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ status: 'error', message: error.message });

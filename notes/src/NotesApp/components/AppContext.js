@@ -12,6 +12,7 @@ export const AppProvider = ({ children }) => {
     searchSubSidebar: false,
     bookmarksSubSidebar: false,
     bookmarks: [],
+    folders: [],
     selectedNote: {
       NoteId: '',
       Title: '',
