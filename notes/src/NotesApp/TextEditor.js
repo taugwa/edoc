@@ -5,7 +5,9 @@ const  toolbarOptions  = {
     toolbar: [
         [{ font: [] }],
         [{ header: [1, 2, 3] }],
-        ["bold", "italic", "underline","strike"],
+        [
+            //"bold", //idk why all the words in the text editor are auto bold
+        "italic", "underline","strike"],
         [{ color: [] }, { background: [] }],
         [{ script:  "sub" }, { script:  "super" }],
         ["blockquote", "code-block"],
