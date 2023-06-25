@@ -225,6 +225,7 @@ const Sidebar = ({ Username }) => {
           </button>
 
           <Link
+            to="#"
             style={{ textDecoration: 'none', color: 'black' }}
             onClick={handleNewNoteClick}
             className="notesapp-sidebar-function-label"
@@ -238,29 +239,29 @@ const Sidebar = ({ Username }) => {
           </Link>
 
           {content.folders.length > 0 && (
-            <div className="notesapp-sidebar-folders">
-              <span className="notesapp-sidebar-function-label">Folders</span>
-              {content.folders.map((folder) => (
-                <Link
-                  key={folder._id}
-                  to={`/folders/${Username}/${folder._id}`}
-                  className={
-                    folder._id === content.selectedFolder?._id
-                      ? 'notesapp-sidebar-folder-active'
-                      : 'notesapp-sidebar-folder'
-                  }
-                  onClick={() => handleFolderClick(folder)}
-                >
-                  <img
-                    src={folderIcon}
-                    alt="Folder"
-                    style={{ width: '16px', paddingRight: '5px' }}
-                  />
-                  {folder.Title}
-                </Link>
-              ))}
-            </div>
-          )}
+  <div className="notesapp-sidebar-folders">
+    <span className="notesapp-sidebar-function-label">Folders</span>
+    {content.folders.map((folder) => (
+      <button
+        key={folder._id}
+        className={
+          folder._id === content.selectedFolder?._id
+            ? 'notesapp-sidebar-folder-active'
+            : 'notesapp-sidebar-folder'
+        }
+        onClick={() => handleFolderClick(folder)}
+      >
+        <img
+          src={folderIcon}
+          alt="Folder"
+          style={{ width: '16px', paddingRight: '5px' }}
+        />
+        {folder.Title}
+      </button>
+    ))}
+  </div>
+)}
+         
 
           <div className="notesapp-sidebar-notes">
             <span className="notesapp-sidebar-function-label">Notes</span>
@@ -294,4 +295,5 @@ const Sidebar = ({ Username }) => {
 };
 
 export default Sidebar;
+
 

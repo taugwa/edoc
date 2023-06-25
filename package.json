@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "firebase": "^9.23.0",
     "nodemon": "^2.0.22",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.13.0"
