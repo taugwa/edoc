@@ -13,7 +13,7 @@ const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
-const mongoUrl = "mongodb+srv://vercel-admin-user:kNsW3f0ybWhojaEk@edoccluster.l6nl5ss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
 
 mongoose.connect(mongoUrl, {
   useNewUrlParser:true,
