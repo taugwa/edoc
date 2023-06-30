@@ -23,6 +23,13 @@ mongoose.connect(mongoUrl, {
   .catch(error => console.log(error));
 ;
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'https://edoc-y84w-47yazvbol-yuxunn.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 app.post("/Signup",async(req,res) => {
   const {Email, Username, Password, Password_second} = req.body;
   if (Password !== Password_second) {
