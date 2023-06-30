@@ -12,7 +12,7 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/Welcome",{
+    fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/Welcome",{
       method:"POST",
       crossDomain:true,
       headers:{
