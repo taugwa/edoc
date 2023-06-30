@@ -14,7 +14,13 @@ const UserDetailsSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           ref: "Note"
         }
-      ]
+      ], 
+      folders: [
+        {
+          type:mongoose.Schema.Types.ObjectId,
+          ref: "Folder"
+        }
+      ],
 },
 {
     collection: "UserDetails",

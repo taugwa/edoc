@@ -17,6 +17,8 @@ export const AppProvider = ({ children }) => {
       Title: '',
       Body: '',
     },
+    folders: [],
+    
   });
 
   useEffect(() => {

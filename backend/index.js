@@ -9,10 +9,12 @@ const jwt = require("jsonwebtoken");
 const secret = "randomnumbersecret";
 require("./UserDetails");
 require("./Note");
+require("./Folder");
 const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
+const Folder =mongoose.model("Folder");
 const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
 
 mongoose.connect(mongoUrl, {
@@ -241,6 +243,50 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
   }
 });
 
+
+app.post('/folders/:Username', async (req, res) => {
+  console.log('Folder POST route reached');
+
+  const { Username } = req.params;
+  const { Title, notes } = req.body;
+  try {
+    const user = await User.findOne({ Username });
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+
+    const folder = new Folder({
+      Title,
+      notes,
+    });
+
+    await folder.save();
+    user.folders.push(folder._id);
+    await user.save();
+
+    // Send the generated folderId in the response
+    res.status(201).json({ status: 'success', message: 'Folder created', folderId: folder._id });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.get('/folders/:Username', async (req, res) => {
+  try {
+   // console.log("GET folders username");
+    const { Username } = req.params;
+
+    // Retrieve the folder data from the database or any other data source
+    const folders = await Folder.find({ username: Username });
+
+    // Return the folder data as a response
+    res.json(folders);
+  } catch (error) {
+    // Handle any potential errors and return an error response
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 app.listen(3000, () => {
   console.log("server started!");
