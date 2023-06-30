@@ -12,7 +12,7 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/Welcome",{
+    fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/Welcome",{
       method:"POST",
       crossDomain:true,
       headers:{

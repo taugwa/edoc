@@ -24,7 +24,7 @@ class Signup extends Component {
       return;
     }
     console.log(Email, Username, Password, Password_second);
-    fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/signup",{
+    fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/signup",{
       method:"POST",
       crossDomain:true,
       headers:{

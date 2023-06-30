@@ -80,7 +80,7 @@ const Page = () => {
   const saveNote = (e) => {
     //e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch(`https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/notes/${Username}/${NoteId}`, {
+    fetch(`https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/notes/${Username}/${NoteId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

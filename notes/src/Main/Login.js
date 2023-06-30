@@ -16,7 +16,7 @@ class Login extends Component {
       e.preventDefault();
       const {Username, Password} = this.state;
       console.log(Username, Password);
-      fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/Login",{
+      fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/Login",{
       method:"POST",
       crossDomain:true,
       headers:{

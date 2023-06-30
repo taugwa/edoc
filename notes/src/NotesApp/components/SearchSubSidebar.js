@@ -12,7 +12,7 @@ const SearchSubSidebar = () => {
   useEffect(() => {
     const fetchUserNotes = async () => {
       try {
-        const response = await fetch(`https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/notes/${content.Username}`, {
+        const response = await fetch(`https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/notes/${content.Username}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
