@@ -16,7 +16,7 @@ class ResetPassword extends Component {
     e.preventDefault();
     const {Username, New_Password, Confirm_Password}  = this.state;
     console.log(Username, New_Password, Confirm_Password);
-    fetch("http://localhost:3000/resetpassword", {
+    fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/resetpassword", {
       method:"POST",
       crossDomain:true,
       headers:{

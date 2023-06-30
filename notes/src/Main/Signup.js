@@ -24,7 +24,7 @@ class Signup extends Component {
       return;
     }
     console.log(Email, Username, Password, Password_second);
-    fetch("http://localhost:3000/signup",{
+    fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/signup",{
       method:"POST",
       crossDomain:true,
       headers:{

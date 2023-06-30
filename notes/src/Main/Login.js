@@ -16,7 +16,7 @@ class Login extends Component {
       e.preventDefault();
       const {Username, Password} = this.state;
       console.log(Username, Password);
-      fetch("http://localhost:3000/Login",{
+      fetch("https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/Login",{
       method:"POST",
       crossDomain:true,
       headers:{
