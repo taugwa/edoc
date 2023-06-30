@@ -8,12 +8,20 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const secret = "randomnumbersecret";
 require("./UserDetails");
-require("./Note");
+require("./Note")();
 const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
 const mongoUrl = "mongodb+srv://vercel-admin-user:kNsW3f0ybWhojaEk@edoccluster.l6nl5ss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
+
 mongoose.connect(mongoUrl, {
   useNewUrlParser:true,
 }).then(() =>{
@@ -22,6 +30,8 @@ mongoose.connect(mongoUrl, {
   // connection failed 
   .catch(error => console.log(error));
 ;
+
+
 
 app.post("/Signup",async(req,res) => {
   const {Email, Username, Password, Password_second} = req.body;
