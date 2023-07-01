@@ -1,16 +1,9 @@
-
 {
   "version": 2,
   "builds": [
     {
       "src": "./backend/index.js",
       "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/notes/(.*)",
-      "dest": "./notes/$1"
     }
   ],
   "headers": [
@@ -25,4 +18,3 @@
     }
   ]
 }
-
