@@ -44,8 +44,6 @@ mongoose.connect(mongoUrl, {
   .catch(error => console.log(error));
 ;
 
-
-
 app.post("/Signup",async(req,res) => {
   const {Email, Username, Password, Password_second} = req.body;
   if (Password !== Password_second) {
