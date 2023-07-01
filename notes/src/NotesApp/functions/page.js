@@ -46,7 +46,7 @@ const Page = () => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin': 'https://edoc-y84w.vercel.app/',
+        'Access-Control-Allow-Origin': '*',
       },
     })
       .then((response) => response.json())
@@ -87,7 +87,7 @@ const Page = () => {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'Access-Control-Allow-Origin': 'https://edoc-y84w.vercel.app/',
+        'Access-Control-Allow-Origin': '*',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
