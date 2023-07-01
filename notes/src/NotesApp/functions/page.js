@@ -41,7 +41,8 @@ const Page = () => {
   }, [selectedNote, NoteId]);
 
   const fetchNote = () => {
-    fetch(`https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/notes/${Username}/${NoteId}`, {
+    //fetch(`https://edoc-y84w-dfnz3qbt5-yuxunn.vercel.app/notes/${Username}/${NoteId}`, {
+      fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +83,8 @@ const Page = () => {
   const saveNote = (e) => {
     //e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch(`https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/notes/${Username}/${NoteId}`, {
+    //fetch(`https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/notes/${Username}/${NoteId}`, {
+      fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

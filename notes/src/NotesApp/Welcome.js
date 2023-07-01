@@ -12,7 +12,8 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/Welcome",{
+    //fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/Welcome",{
+      fetch("http://localhost:3001/Welcome", {
       method:"POST",
       crossDomain:true,
       headers:{

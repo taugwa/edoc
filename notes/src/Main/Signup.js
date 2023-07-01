@@ -24,7 +24,8 @@ class Signup extends Component {
       return;
     }
     console.log(Email, Username, Password, Password_second);
-    fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/signup",{
+    //fetch("https://data.mongodb-api.com/app/data-gjgfv/endpoint/data/v1/signup",{
+      fetch("http://localhost:3001/signup", {
       method:"POST",
       crossDomain:true,
       headers:{
