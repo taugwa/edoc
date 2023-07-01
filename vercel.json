@@ -13,7 +13,7 @@
     {
       "src": "/notes/(.*)",
       "dest": "./notes/$1"
-    }]g
+    }]
     ,
       "headers": [
         {
