@@ -18,7 +18,7 @@ class Welcome extends Component {
       headers:{
         "Content-Type":"application/json",
         Accept:"application/json",
-        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Origin":"https://edoc-y84w.vercel.app/",
       },
       body:JSON.stringify({
       token: window.localStorage.getItem("token"),  
