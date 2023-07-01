@@ -16,7 +16,7 @@ const User = mongoose.model("UserDetails");
 const mongoUrl = "mongodb+srv://vercel-admin-user:kNsW3f0ybWhojaEk@edoccluster.l6nl5ss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://edoc-y84w.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
