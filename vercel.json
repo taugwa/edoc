@@ -6,11 +6,14 @@
       "use": "@vercel/node"
     }
   ],
+  
+    "rewrites": [{ "source": "/api/(.*)", "destination": "/backend/index.js" }]
+  ,
   "routes": [
     {
       "src": "/notes/(.*)",
       "dest": "./notes/$1"
-    }]
+    }]g
     ,
       "headers": [
         {
