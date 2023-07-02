@@ -13,7 +13,7 @@ const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
-const mongoUrl = "mongodb+srv://vercel-admin-user:kNsW3f0ybWhojaEk@edoccluster.l6nl5ss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const mongoUrl = "mongodb+srv://vercel-admin-user-64a1287d850c220cc305076b:y1JrShRWiVa7JRxf@edoccluster.l6nl5ss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
 const allowCors = (req, res, next) => {
