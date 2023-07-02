@@ -6,7 +6,7 @@ const cors = require("cors");
 app.use(cors());
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const secret = "randomnumbersecret";
+const secret = process.env.JWT_SECRET;
 require("./UserDetails");
 require("./Note")();
 const { ObjectId } = require('mongodb');
