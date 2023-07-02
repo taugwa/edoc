@@ -9,12 +9,6 @@
   
     "rewrites": [{ "source": "/api/(.*)", 
     "destination": "/backend/index.js" }]
-  ,
-  "routes": [
-    {
-      "src": "/notes/(.*)",
-      "dest": "./notes/$1"
-    }]
     ,
       "headers": [
         {
