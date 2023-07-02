@@ -13,6 +13,7 @@ const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
+const port = process.env.PORT || 3000; // Use assigned port or fallback to 3000
 const mongoUrl = "mongodb+srv://vercel-admin-user-64a1287d850c220cc305076b:y1JrShRWiVa7JRxf@edoccluster.l6nl5ss.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
@@ -262,8 +263,9 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
 });
 
 
-app.listen(3000, () => {
-  console.log("server started!");
+
+app.listen(port, () => {
+  console.log("Server started on port:", port);
 });
 
 // app.post("/post", async(req,res) => {
