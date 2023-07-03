@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"cd backend && npx nodemon index.js\" \"cd notes && npm start\""
+    "start": "concurrently \"cd backend && npx nodemon index.js\" \"cd notes && npm run build\"",
+    "build": "cd notes && npm run build",
+    "build-backend": "npx nodemon backend/index.js"
   },
   "author": "",
   "license": "ISC",
