@@ -12,7 +12,7 @@ class Welcome extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/Welcome",{
+    fetch("http://localhost:3001/Welcome",{
       method:"POST",
       crossDomain:true,
       headers:{
