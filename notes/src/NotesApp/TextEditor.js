@@ -16,7 +16,12 @@ const  toolbarOptions  = {
     ],
 };
 const Editor = ({ value, onChange }) => {
-    return <ReactQuill value={value} onChange={onChange} modules={toolbarOptions} theme="snow"  />;
+    return <ReactQuill 
+        className="texteditor"
+        value={value} 
+        onChange={onChange} 
+        modules={toolbarOptions} 
+        theme="snow"  />;
   };
 
 export  default  Editor;

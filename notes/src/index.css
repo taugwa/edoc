@@ -435,6 +435,11 @@ html, body, #root {
   padding-top:10px;
 }
 
+
+.texteditor {
+  margin-right: 40px;
+  margin-bottom:50px;
+}
 .notetextarea {
   width: 100%;
   height:80vh;
@@ -446,19 +451,40 @@ html, body, #root {
 
 }
 
-.notetextarea::-webkit-scrollbar {
-  background-color: transparent;
-  width: 8px;
+.pagenotearea {
+  margin-top:10px;
+  margin-left:10px;
+  margin-bottom:10px;
+  height:100vh;
+  padding-left:15px;
+  padding-top:10px;
+  padding-right: -10px;
+  font-size:50px;
+  overflow-y: scroll;
+
 }
 
-.notetextarea::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 4px;
+.pagenotearea::-webkit-scrollbar {
+  width: 6px;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.notetextarea::-webkit-scrollbar-thumb:hover {
-  background-color: #aaa;
+.pagenotearea:hover::-webkit-scrollbar {
+  opacity: 1;
 }
+
+.pagenotearea::-webkit-scrollbar-thumb {
+  background-color: #eaebea;
+  border-radius: 3px;
+}
+
+
+.sidebarnotes-container::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+
+
 
 
 .nobookmark {
@@ -479,7 +505,7 @@ html, body, #root {
   justify-content: left;
   background-color: #E4E2E2;
   border-radius: 5px;
-  width: 33px;
+  width: 65px;
 }
 
 .toolbar-button {
@@ -493,4 +519,26 @@ html, body, #root {
 
 .toolbar-button-img {
   width: 20px;
+}
+
+.recentNotes {
+  padding-top:10px;
+}
+
+.recentNoteLink{
+  font-family: var(--font-body);
+  font-size: 17px;
+  outline: none;
+  margin: 2px;
+  height:35px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+}
+
+.recentNoteLink:hover {
+  text-decoration: underline;
+  color: #535353 
 }

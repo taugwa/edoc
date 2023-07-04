@@ -71,7 +71,6 @@ class Login extends Component {
                           }}
           >Log in</LoginSignupButton>
         
-        
       </form>
 
       <p className = "loginbottomtext">

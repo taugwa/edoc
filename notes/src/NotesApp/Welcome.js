@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import UserLandingPage from "./UserLandingPage";
 import HiUser from "./functions/HiUser"
 import { AppProvider } from "./components/AppContext";
+import { AppContext } from './components/AppContext';
+
 
 class Welcome extends Component {
   constructor(props) {

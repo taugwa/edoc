@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
 import bookmarkIcon from './images/bookmark.png';
 import bookmarkFilledIcon from './images/bookmarkFilled.png';
+import trashIcon from './images/trash.png';
 
 const Toolbar = () => {
   const { content, updateContent } = useContext(AppContext);
@@ -30,10 +31,43 @@ const Toolbar = () => {
   };
   const isBookmarked = selectedNote && bookmarks.some((note) => note.NoteId === selectedNote.NoteId);
 
+  const handleDeleteNoteClick = async () => {
+    console.log("deletenote" + content.Username + content.selectedNote.NoteId )
+    
+    try {
+      const response = await fetch(`http://localhost:3000/notes/${content.Username}/${content.selectedNote.NoteId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+ 
+      }) 
+      if (response.ok) {
+        alert(`note ${content.selectedNote.NoteId} successfully deleted`);
+        window.location.href = `/Welcome`
+
+      } else {
+        console.error('Error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    
+  };
+
+
+
+  
+
   return (
     <div className='toolbar'>
       <button className="toolbar-button" onClick={handleBookmarkClick}>
         <img src={isBookmarked ? bookmarkFilledIcon : bookmarkIcon} className="toolbar-button-img" alt="Bookmark" />
+      </button>
+      <button className="toolbar-button" onClick={handleDeleteNoteClick}>
+        <img src={trashIcon} className="toolbar-button-img" alt="Bookmark" />
       </button>
     </div>
   );

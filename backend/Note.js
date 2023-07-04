@@ -7,6 +7,7 @@ const NotesSchema = new mongoose.Schema(
     },
     {
       collection: "notes",
+      timestamps: true
   }
 );
 mongoose.model("Note", NotesSchema);

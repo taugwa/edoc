@@ -20,15 +20,16 @@ function UserLandingPage({Username, PageType}) {
 
   const { content, updateContent } = useContext(AppContext);
   useEffect(() => {
-      updateContent({ Username: Username });
+      updateContent({...content, PageType: PageType, Username: Username });
     }, [Username]);
     
     let renderedComponent;
-
+    console.log(PageType)
     if (PageType === 'HiUser') {
         renderedComponent = <HiUser Username={Username} />;
     } else if (PageType === 'Page') {
-        renderedComponent = <Page Username={Username} />;
+        renderedComponent = <Page Username={Username} />
+       
     }
 
   return (
@@ -42,7 +43,7 @@ function UserLandingPage({Username, PageType}) {
             { content.searchSubSidebar && (<Grid item><SearchSubSidebar Username={Username}/></Grid>)  }
             { content.bookmarksSubSidebar && (<Grid item><BookmarksSubSidebar/></Grid>)  }
            
-            <Grid item xs={12}>
+            <Grid item>
                 
             {renderedComponent}
             </Grid>

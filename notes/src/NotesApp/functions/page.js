@@ -123,7 +123,7 @@ const Page = () => {
   };
 
   return (
-    <div className="notearea">
+    <div className="pagenotearea">
        <Toolbar selectedNote={selectedNote} updateContent={updateContent} />
        <form className="noteForm" onSubmit={saveNote}>
         <StyledInputBaseTitle

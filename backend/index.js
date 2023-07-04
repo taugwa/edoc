@@ -156,7 +156,26 @@ app.get('/notes/:Username', async (req, res) => {
   }
 });
 
+app.get('/notes/:Username/recent', async (req, res) => {
+  try {
+    const { Username } = req.params;
+ //  console.log("get notes username");
+  // console.log(Username);
+    const user = await UserDetails.findOne({ Username });
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+    const recentNotes = await Note.find({ _id: { $in: user.notes } })
+        .sort({ updatedAt: -1 })
+        .limit(3);
+    return res.status(200).json(recentNotes);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ status: 'error', message: 'Error retrieving notes' });
+  }
+});
 
+/*
 app.get('/notes/:id', async (req, res) => {
   const noteId = req.params.id;
   try {
@@ -170,7 +189,7 @@ app.get('/notes/:id', async (req, res) => {
     return res.status(500).json({ status: 'error', message: 'Error retrieving note' });
   }
 });
-
+*/
 app.get('/notes/:Username/:NoteId', async (req, res) => {
  // console.log('GET /notes/:Username/:NoteId endpoint reached');
   const { Username, NoteId } = req.params;
@@ -190,6 +209,44 @@ app.get('/notes/:Username/:NoteId', async (req, res) => {
   //  console.log("hi theres an error");
     return res.status(500).json({ status: 'error', message: error.message });
   }
+});
+
+app.delete('/notes/:Username/:NoteId', async (req, res) => {
+  const { Username, NoteId } = req.params;
+  console.log(`backend delete ${Username} & ${NoteId}`)
+  try {
+    const note = await Note.findOne({ _id: mongoose.Types.ObjectId.createFromHexString(NoteId) });
+    if (!note) {
+      return res.status(404).json({ status: 'error', message: 'Note not found' });
+    }
+    await Note.deleteOne({_id: mongoose.Types.ObjectId.createFromHexString(NoteId) })
+    return res.json({ status: 'success', note });
+  } catch {
+    console.error(error);
+  //  console.log("hi theres an error");
+    return res.status(500).json({ status: 'error', message: error.message });
+  
+  }
+
+
+/*
+  try {
+    Note.findByIdAndDelete(NoteId, (err) => {
+      if (err) {
+        // Handle any errors
+        console.error(err);
+        res.status(500).send('An error occurred');
+      } else {
+        // Note successfully deleted
+        res.send('Note deleted');
+    }})
+  } catch (error) {
+    console.error(error);
+  //  console.log("hi theres an error");
+    return res.status(500).json({ status: 'error', message: error.message });
+  }
+  */
+  
 });
 
 app.post('/notes/:Username/:NoteId', async (req, res) => {

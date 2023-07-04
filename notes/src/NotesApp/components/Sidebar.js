@@ -8,6 +8,8 @@ import bookmarkIcon from './images/bookmark.png';
 import documentIcon from './images/document.png';
 import { Link } from 'react-router-dom';
 
+import { useHistory } from 'react-router-dom';
+
 const Sidebar = ({ Username }) => {
   const { content, updateContent } = useContext(AppContext);
   const [notes, setNotes] = useState([]);
@@ -72,6 +74,9 @@ const Sidebar = ({ Username }) => {
           console.log(message);
           // Redirect the user to the new note page
          const newNoteId = noteUrl.split('/').pop(); // Extract the unique ID from the note URL
+         updateContent({ ...content, selectedNote: { 
+              NoteId: newNoteId}
+            })
           //window.location.href = `/notes/${Username}/${newNoteId}`;
           //history.push(`/notes/${Username}/${newNoteId}`);
           window.history.pushState(null, '', `/notes/${Username}/${newNoteId}`);
@@ -93,6 +98,9 @@ const Sidebar = ({ Username }) => {
     note.Title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const handleNoteClick = () => {
+    updateContent({...content, PageType: "Page"})
+  }
   return (
     <div className="sidebar">
       <div className="sidebar-fixed">
@@ -164,6 +172,7 @@ const Sidebar = ({ Username }) => {
               key={existingNote._id}
               className="sidebarnotes-button"
               to={`/notes/${Username}/${existingNote._id}`}
+              onClick={handleNoteClick}
               style={{ textDecoration: 'none', color: 'black' }}
             >
               <img
