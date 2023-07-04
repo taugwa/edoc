@@ -16,7 +16,7 @@ function HiUser ({Username}) {
     useEffect(() => {
         const fetchUserRecentNotes = async () => {
           try {
-            const response = await fetch(`https://edoc-hazel.vercel.app/notes/${content.Username}/recent`, {
+            const response = await fetch(`http://localhost:3001/notes/${content.Username}/recent`, {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',

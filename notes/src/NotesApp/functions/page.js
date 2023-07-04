@@ -44,7 +44,9 @@ const Page = () => {
     fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type":"application/json",
+        Accept:"application/json",
+        "Access-Control-Allow-Origin":"*",
       },
     })
       .then((response) => response.json())
@@ -80,7 +82,7 @@ const Page = () => {
   const saveNote = (e) => {
     //e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch(`https://edoc-hazel.vercel.app/notes/${Username}/${NoteId}`, {
+    fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

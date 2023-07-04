@@ -27,7 +27,7 @@ const Sidebar = ({ Username }) => {
   const fetchUserNotes = async () => {
     if (Username) {
       try {
-        const response = await fetch(`https://edoc-hazel.vercel.app/notes/${Username}`, {
+        const response = await fetch(`http://localhost:3001/notes/${Username}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const Sidebar = ({ Username }) => {
     event.preventDefault();
     
     try {
-      const response = await fetch('https://edoc-hazel.vercel.app/notes', {
+      const response = await fetch('http://localhost:3001/notes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
