@@ -17,10 +17,10 @@ export const AppProvider = ({ children }) => {
       Title: '',
       Body: '',
     },
+    isLoggedIn: false,
   });
 
   useEffect(() => {
-    // Retrieve bookmarks and selected note from local storage and update the state
     const storedBookmarks = localStorage.getItem('bookmarks');
     const storedSelectedNote = localStorage.getItem('selectedNote');
 
@@ -47,12 +47,10 @@ export const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Store bookmarks in local storage whenever it changes
     localStorage.setItem('bookmarks', JSON.stringify(content.bookmarks));
   }, [content.bookmarks]);
 
   useEffect(() => {
-    // Store selected note in local storage whenever it changes
     localStorage.setItem('selectedNote', JSON.stringify(content.selectedNote));
   }, [content.selectedNote]);
 

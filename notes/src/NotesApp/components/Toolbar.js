@@ -1,11 +1,19 @@
 import React, { useContext } from 'react';
 import { AppContext } from './AppContext';
+import { useNavigate } from 'react-router-dom';
 import bookmarkIcon from './images/bookmark.png';
 import bookmarkFilledIcon from './images/bookmarkFilled.png';
 
+
 const Toolbar = () => {
+  const navigate = useNavigate();
   const { content, updateContent } = useContext(AppContext);
-  const { selectedNote, bookmarks } = content;
+  const { selectedNote, bookmarks, isLoggedIn } = content;
+  const handleLogoutClick = () => {
+    localStorage.clear();
+    updateContent({ ...content, isLoggedIn: false });
+    navigate('/'); 
+  };
 
   const handleBookmarkClick = () => {
 
@@ -35,6 +43,7 @@ const Toolbar = () => {
       <button className="toolbar-button" onClick={handleBookmarkClick}>
         <img src={isBookmarked ? bookmarkFilledIcon : bookmarkIcon} className="toolbar-button-img" alt="Bookmark" />
       </button>
+      <button className="toolbar-button" onClick={handleLogoutClick}>Logout</button>
     </div>
   );
 
