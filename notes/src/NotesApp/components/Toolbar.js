@@ -44,7 +44,7 @@ const Toolbar = () => {
     console.log("deletenote" + content.Username + content.selectedNote.NoteId )
     
     try {
-      const response = await fetch(`http://localhost:3000/notes/${content.Username}/${content.selectedNote.NoteId}`, {
+      const response = await fetch(`http://localhost:3001/notes/${content.Username}/${content.selectedNote.NoteId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
