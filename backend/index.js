@@ -24,7 +24,7 @@ mongoose.connect(mongoUrl, {
   .catch(error => console.log(error));
 ;
 
-app.post("/Signup",async(req,res) => {
+app.post("/signup",async(req,res) => {
   const {Email, Username, Password, Password_second} = req.body;
   if (Password !== Password_second) {
     return res.json({ error: "Passwords do not match" });

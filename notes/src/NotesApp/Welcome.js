@@ -16,7 +16,7 @@ const Welcome = (props) => {
   
       navigate('/login');
     } else {
-      fetch('http://localhost:3001/Welcome', {
+      fetch('https://edoc-hazel.vercel.app/Welcome', {
         method: 'POST',
         crossDomain: true,
         headers: {
