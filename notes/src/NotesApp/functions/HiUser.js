@@ -2,11 +2,17 @@ import { Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../components/AppContext';
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function HiUser ({Username}) {
+  const navigate = useNavigate();
     const { content, updateContent } = useContext(AppContext);
     const [recentNotes, setRecentNotes] = useState([]);
-
+    const handleLogoutClick = () => {
+      localStorage.clear();
+      updateContent({ ...content, isLoggedIn: false });
+      navigate('/'); 
+    };
     useEffect(() => {
         const fetchUserRecentNotes = async () => {
           try {
@@ -57,7 +63,9 @@ function HiUser ({Username}) {
                     ))}
                 </div>
             </div>
-            
+            <div className="logout-button-container">
+        <button className="logout-button" onClick={handleLogoutClick}>Log out</button>
+      </div>
         </div>
 
     )

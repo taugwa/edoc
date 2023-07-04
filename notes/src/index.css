@@ -426,7 +426,7 @@ html, body, #root {
   font-weight:bold;
   height:100vh;
   padding-left:15px;
-  padding-top:10px;
+  padding-top:15px;
   font-size:50px;
 
 }
@@ -498,23 +498,28 @@ html, body, #root {
   display: flex; /* Display the toolbar as a flex container */
   align-items: center; /* Align items vertically in the center */
 
-  height: 25px;
+  height: 39px;
   margin-top: 10px;
-  padding: 5px;
-  padding-top: 8px;
+
   justify-content: left;
   background-color: #E4E2E2;
   border-radius: 5px;
-  width: 65px;
+  width: 73px;
 }
 
 .toolbar-button {
   background: none;
   border: none;
   outline: none;
+  padding-top:4px;
+  padding:8px;
+  border-radius: 5px;
 }
 .toolbar-button:hover {
   cursor: pointer;
+
+    background-color: #cecece;
+  
 }
 
 .toolbar-button-img {
@@ -541,4 +546,27 @@ html, body, #root {
 .recentNoteLink:hover {
   text-decoration: underline;
   color: #535353 
+}
+
+
+.logout-button-container{
+  justify-content: right;
+}
+
+
+.logout-button {
+  font-family: var(--font-body);
+  font-size: 15px;
+  position: absolute;
+  top: 30px;
+  right:40px;
+  padding: 10px;
+  border:none;
+  background-color: #E4E2E2;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background-color: #cecece;
 }

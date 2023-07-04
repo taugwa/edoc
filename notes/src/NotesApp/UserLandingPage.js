@@ -43,7 +43,7 @@ function UserLandingPage({Username, PageType}) {
             { content.searchSubSidebar && (<Grid item><SearchSubSidebar Username={Username}/></Grid>)  }
             { content.bookmarksSubSidebar && (<Grid item><BookmarksSubSidebar/></Grid>)  }
            
-            <Grid item>
+            <Grid item xs={12}>
                 
             {renderedComponent}
             </Grid>
