@@ -13,6 +13,7 @@ const { ObjectId } = require('mongodb');
 const UserDetails = require("./UserDetails");
 const Note = mongoose.model("Note");
 const User = mongoose.model("UserDetails");
+const port = process.env.PORT || 3001;
 const mongoUrl = "mongodb+srv://teeyuxun:RP9z92Y968CuByDp@edoccluster.l6nl5ss.mongodb.net/";
 
 mongoose.connect(mongoUrl, {
@@ -299,7 +300,7 @@ app.post('/notes/:Username/:NoteId', async (req, res) => {
 });
 
 
-app.listen(3001, () => {
+app.listen(port, () => {
   console.log("server started!");
 });
 

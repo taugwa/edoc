@@ -80,7 +80,7 @@ const Page = () => {
   const saveNote = (e) => {
     //e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch(`https://edoc-hazel.vercel.app/notes/${Username}/${NoteId}`, {
+    fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
