@@ -12,7 +12,7 @@ const SearchSubSidebar = () => {
   useEffect(() => {
     const fetchUserNotes = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/notes/${content.Username}`, {
+        const response = await fetch(`https://edoc-api.vercel.app/notes/${content.Username}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

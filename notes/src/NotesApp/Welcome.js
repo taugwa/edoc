@@ -16,7 +16,7 @@ const Welcome = (props) => {
   
       navigate('/login');
     } else {
-      fetch('http://localhost:3001/Welcome', {
+      fetch('https://edoc-api.vercel.app/Welcome', {
         method: 'POST',
         crossDomain: true,
         headers: {

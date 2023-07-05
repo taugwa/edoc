@@ -41,7 +41,7 @@ const Page = () => {
   }, [selectedNote, NoteId]);
 
   const fetchNote = () => {
-    fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
+    fetch(`https://edoc-api.vercel.app/notes/${Username}/${NoteId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const Page = () => {
   const saveNote = (e) => {
     //e.preventDefault();
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:3001/notes/${Username}/${NoteId}`, {
+    fetch(`https://edoc-api.vercel.app/notes/${Username}/${NoteId}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
